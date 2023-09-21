@@ -1,0 +1,12 @@
+apiVersion: v2
+name: tucana
+description: A Helm chart to deploy Toucan frontend
+
+type: application
+
+appVersion: latest-lts
+version: 0.1.0
+
+maintainers: # (optional)
+  - name: Riadh Meghenem
+    email: riadh.meghenem@toucantoco.com
