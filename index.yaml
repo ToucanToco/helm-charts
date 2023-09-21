@@ -3,6 +3,19 @@ entries:
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
+    created: "2023-09-21T14:57:14.191681396Z"
+    description: A Helm chart to deploy Toucan frontend
+    digest: 20df6523d306699c7f57579f8485ecf86bf7f9bf71c0dc149eb9479d1b4e7bad
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: tucana
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.1/tucana-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest-lts
     created: "2023-09-21T08:18:01.76670284Z"
     description: A Helm chart to deploy Toucan frontend
     digest: 1fc975c60607fed1ee6b165afc2ff72664b2144df6cee9332574dd07363e2bff
@@ -14,4 +27,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-21T08:18:01.76671474Z"
+generated: "2023-09-21T14:57:14.191689896Z"
