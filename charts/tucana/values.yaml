@@ -5,12 +5,13 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: quay.io/toucantoco/frontend
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest-lts"
+  tag: "latest"
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: "quay"
 nameOverride: ""
 fullnameOverride: ""
 
@@ -50,7 +51,7 @@ ingress:
     - host: chart-example.local
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -80,3 +81,58 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+tucana_configuration: |
+  /**
+  * Tucana"s configuration
+  * The double quotes allows /build/webpack/base.js to properly inject values
+  *
+  * Yes, this file belongs in /src/shared, but many entities depends on this file being here:
+  * - on-premise clients
+  * - tucapult
+  * - doc
+  * - ...
+  * It was deemed too costly to move it
+  * https://github.com/ToucanToco/tucana/pull/10464#pullrequestreview-682839890
+  */
+  window.TC_PARAMS = {
+    // URL of the back-end to use
+    API_BASEROUTE: "__API_BASEROUTE_PLACEHOLDER__",
+    // Flagsmith URL and its environment key
+    FLAGSMITH_URL: "__FLAGSMITH_URL_PLACEHOLDER__",
+    FLAGSMITH_ENV_KEY: "__FLAGSMITH_ENV_KEY_PLACEHOLDER__",
+    // Optional, when the websocket server listen to another port
+    WEBSOCKET_BASEROUTE: "__WEBSOCKET_BASEROUTE_PLACEHOLDER__",
+    // Optional: route to redirect users to authenticated OAuth connectors using a Pizzly instance
+    OAUTH_MANAGER_BASEROUTE: "__OAUTH_MANAGER_BASEROUTE_PLACEHOLDER__",
+
+    // Optional: all visitors will be auhenticated as this user
+    USERNAME: "__USERNAME_PLACEHOLDER__",
+    PASSWORD: "__PASSWORD_PLACEHOLDER__",
+
+    // Optional: Analytics properties
+    MIXPANEL_ANALYTICS_ID: "__MIXPANEL_ANALYTICS_ID_PLACEHOLDER__",
+    MIXPANEL_PROXY_URL: "__MIXPANEL_PROXY_URL_PLACEHOLDER__",
+
+    /**
+    * Customize the banner to warn users about data collection
+    *
+    * @property message
+    * @property linkMessage
+    * @property linkUrl
+    */
+    GDPR_SETTINGS: "__GDPR_SETTINGS_PLACEHOLDER__",
+
+    /* Feature flags */
+    GOOGLE_TAG_MANAGER: "__GOOGLE_TAG_MANAGER_PLACEHOLDER__",
+    TEMPLATE_ALONE_VARIABLES_AS_STRINGS: "__TEMPLATE_ALONE_VARIABLES_AS_STRINGS_PLACEHOLDER__",
+    SHOW_CUSTOM_CSS: "__SHOW_CUSTOM_CSS_PLACEHOLDER__",
+    SANITIZE_HTML: "__SANITIZE_HTML_PLACEHOLDER__",
+    FRONT_DATASETS_CACHE: "__FRONT_DATASETS_CACHE_PLACEHOLDER__",
+    PERSONAL_REPORT: "__PERSONAL_REPORT_PLACEHOLDER__",
+    NEW_CONTRIBUTOR_PRIVILEGES: "__NEW_CONTRIBUTOR_PRIVILEGES_PLACEHOLDER__",
+    SALESFORCE_SANDBOX: "__SALESFORCE_SANDBOX_PLACEHOLDER__",
+    DATA_SERVICES: "__DATA_SERVICES_PLACEHOLDER__",
+    ENRICH_STORY: "__ENRICH_STORY_PLACEHOLDER__",
+    TENANT: "__TENANT_PLACEHOLDER__",
+  };

@@ -47,6 +47,18 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/scripts/tc-params.js
+              subPath: tc-params.js
+      volumes:
+        - name: config-volume
+          configMap: 
+            name: {{ include "tucana.fullname" . }}
+            items:
+              - key: "tc-params.js"
+                mode: 0744
+                path: "tc-params.js"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
