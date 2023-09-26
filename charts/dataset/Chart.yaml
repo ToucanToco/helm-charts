@@ -1,0 +1,12 @@
+apiVersion: v2
+name: dataset
+description: A Helm chart to deploy Toucan Dataset Service
+
+type: application
+
+appVersion: latest
+version: 0.1.0
+
+maintainers: # (optional)
+  - name: Riadh Meghenem
+    email: riadh.meghenem@toucantoco.com
