@@ -7,6 +7,12 @@ type: application
 appVersion: latest
 version: 0.1.0
 
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 11.9.13
+    condition: postgresql.enabled
+
 maintainers: # (optional)
   - name: Riadh Meghenem
     email: riadh.meghenem@toucantoco.com

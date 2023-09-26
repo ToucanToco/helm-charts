@@ -27,12 +27,30 @@ spec:
       serviceAccountName: {{ include "dataset.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: {{ .Chart.Name }}-migration
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "dataset.fullname" . }}-db
+            - configMapRef:
+                name: {{ include "dataset.fullname" . }}-env
+          command: ["/bin/sh", "-c", "/admin_scripts/run_migrations.sh"]
+          imagePullPolicy: Always
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - secretRef:
+                name: {{ include "dataset.fullname" . }}-db
+            - configMapRef:
+                name: {{ include "dataset.fullname" . }}-env
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
