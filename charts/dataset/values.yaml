@@ -1,0 +1,121 @@
+# Default values for dataset.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/toucantoco/dataset_service
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: v0.3.0
+
+imagePullSecrets:
+  - name: quay
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: dataset.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: dataset-tls
+  #    hosts:
+  #      - dataset.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+datasetConfig:
+  TESTING:              False
+  AUTH_DISABLED:        False
+  ENVIRONMENT:          prod
+  # Public routes
+  NO_AUTH_ROUTES:      '["/", "/metrics"]'
+  #  __TENANT_ID__ will be substituted by the tenant_id
+  JWKS_URI:            "https://_IDP_URI_/__TENANT_ID__/oauth/oauth-anonymous/jwks"
+  JWK_AUDIENCES:       '["workspace-toucan", "toucan-infra-admin-client", "toucan-micro-service-client", "toucan-impersonate-service-client", "toucan-embed-client"]'
+  JWK_ALGORITHMS:      '["RS512"]'
+  # Minimum time between two JWK keys refreshs
+  JWK_MIN_TTL_SECONDS: 300
+  # Max time between two JWK keys refreshs (3600 * 12)
+  JWK_MAX_TTL_SECONDS: 43200
+  # After how long a JWK refresh should time out
+  JWK_REFRESH_TIMEOUT_SECONDS: 2
+  LOG_STRUCTURED_JSON_FORMAT: True
+  SENTRY_DSN:             "__SENTRY__DSN__"
+  DATASET_SERVICE_SCHEMA: "public"
+
+# https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
+postgresql:
+  # disable if you want to use an existing db; in which case the values below
+  # must match those of that external postgres instance
+  enabled: true
+  # postgresqlHostname: preexisting-postgresql
+  postgresqlPort: 5432
+  auth:
+    enablePostgresUser: false
+    postgresPassword: changeme-admin
+    database: dataset-service
+    username: dataset-service
+    password: changeme
+  resources: {}
+  persistence: {}
+  replication: {}
+  volumePermissions: {}
