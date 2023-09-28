@@ -19,6 +19,26 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.1.0/dataset-0.1.0.tgz
     version: 0.1.0
+  gotenberg:
+  - apiVersion: v2
+    appVersion: 7.7.0
+    created: "2023-09-28T12:30:39.534211348Z"
+    description: A Helm chart for Gotenberg
+    digest: 9fc32b941ee4be52b29b56c9845f6430d1c26f88e6291b89b8e2d08e50ce2fee
+    icon: https://user-images.githubusercontent.com/8983173/130322857-185831e2-f041-46eb-a17f-0a69d066c4e5.png
+    keywords:
+    - gotenberg
+    - pdf
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: gotenberg
+    sources:
+    - https://github.com/gotenberg/gotenberg
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/gotenberg-0.1.0/gotenberg-0.1.0.tgz
+    version: 0.1.0
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
@@ -72,4 +92,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-27T16:03:12.014790829Z"
+generated: "2023-09-28T12:30:39.53424305Z"
