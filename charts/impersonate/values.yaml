@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: busybox
+  repository: quay.io/toucantoco/impersonate-token-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: latest
+  tag: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
 
 ingress:
   enabled: false
@@ -112,7 +112,7 @@ configuration:
     # The OIDC impersonate user grant type
     userImpersonateGrantType: "urn:ietf:params:oauth:grant-type:jwt-bearer"
     # Rsa private key to sign the jwt assertion token
-    jwtAssertionPrivateKeyPath:  "config/rsa_4096_priv.pem"
+    jwtAssertionPrivateKeyPath:  "/etc/impersonate-token-service/keys/impersonate_user_rsa_4096_priv.pem"
     # The OIDC provider's issuer
     providerIssuer: "-toucan-impersonate-service-client"
     # Jwt assertion token expiration in seconds
