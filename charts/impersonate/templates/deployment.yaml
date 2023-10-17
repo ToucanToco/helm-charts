@@ -13,8 +13,9 @@ spec:
       {{- include "impersonate.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
+        checksum/configuration: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+      {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
@@ -33,20 +34,38 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: configuration-service
+              mountPath: "/etc/impersonate-token-service/configuration/config.yaml"
+              subPath: "config.yml"
+            - name: configuration-service
+              mountPath: "/etc/impersonate-token-service/keys/impersonate_user_rsa_4096_priv.pem"
+              subPath: "impersonate-user-token-key.pem"
+            - name: configuration-service
+              mountPath: "/etc/impersonate-token-service/keys/embed_token_rsa_4096_priv.pem"
+              subPath: "embed-token-key.pem"
+          args:
+            - /bin/sh
+            - -c
+            - "tail -f /dev/null"
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: configuration-service
+          secret:
+            secretName: {{ include "impersonate.fullname" . }}-configuration
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

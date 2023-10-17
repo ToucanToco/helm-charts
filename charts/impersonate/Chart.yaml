@@ -11,6 +11,7 @@ appVersion: "v0.2.2"
 dependencies:
   - name: redis
     repository: https://charts.bitnami.com/bitnami
+    condition: redis.enable
     version: 18.1.5
 
 keywords:

@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: quay.io/toucantoco/impersonate-token-service
+  repository: busybox
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: latest
 
 imagePullSecrets: []
 nameOverride: ""
@@ -81,13 +81,23 @@ tolerations: []
 
 affinity: {}
 
+# Configure redis using this value
+# cf: https://artifacthub.io/packages/helm/bitnami/redis/18.1.5
 redis:
+  enable: true
   architecture: standalone
 
+# use the --set-file flag to specify the key path to load
+# ex: --set-file keys.impersonateUserTokenRsaKey=/path/to/my/key.rsa
+keys:
+  impersonateUserTokenRsaKey: "CHANGE_ME"
+  embedTokenRsaKey: "CHANGE_ME"
+
+# Impersonate Service configuration
 configuration:
   redis:
-  # Redis address
-  addr: "redis:6379"
+    # Redis address
+    addr: "impersonate-redis-master:6379"
   oidcImpersonateTokenClient:
     # The client ID of the OIDC client
     clientId: "CLIENT_ID"
