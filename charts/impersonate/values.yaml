@@ -85,6 +85,8 @@ affinity: {}
 # cf: https://artifacthub.io/packages/helm/bitnami/redis/18.1.5
 redis:
   enable: true
+  auth:
+    enabled: false
   architecture: standalone
 
 # use the --set-file flag to specify the key path to load
