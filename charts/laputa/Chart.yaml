@@ -1,0 +1,28 @@
+apiVersion: v2
+name: laputa
+description: A Helm chart for Laputa
+
+type: application
+
+version: 0.1.0
+
+appVersion: "v113.0.1"
+
+dependencies:
+  # Redis 6.2
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enable
+    version: 16.13.2
+  - name: mongodb
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enable
+    version: 12.1.31
+
+keywords:
+  - laputa
+  - toucan
+
+maintainers:
+  - name: Riadh Meghenem
+    email: riadh.meghenem@toucantoco.com

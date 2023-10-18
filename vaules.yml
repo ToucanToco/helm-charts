@@ -1,0 +1,3 @@
+configuration:
+  tenancy:
+    tenant_id: TENANT_ID
