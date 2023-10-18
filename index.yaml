@@ -39,6 +39,28 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/gotenberg-0.1.0/gotenberg-0.1.0.tgz
     version: 0.1.0
+  impersonate:
+  - apiVersion: v2
+    appVersion: v0.2.2
+    created: "2023-10-18T13:20:24.335803118Z"
+    dependencies:
+    - condition: redis.enable
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.1.5
+    description: A Helm chart for Impersonate Service
+    digest: c08b9c7c381ddfe259e774551d9d96ae81ce86cba09ea5dbe2feb521885a5786
+    keywords:
+    - impersonate
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: impersonate
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/impersonate-0.1.0/impersonate-0.1.0.tgz
+    version: 0.1.0
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
@@ -92,4 +114,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-28T12:30:39.53424305Z"
+generated: "2023-10-18T13:20:24.335818218Z"
