@@ -1,0 +1,23 @@
+apiVersion: v2
+name: impersonate
+description: A Helm chart for Impersonate Service
+
+type: application
+
+version: 0.1.0
+
+appVersion: "v0.2.2"
+
+dependencies:
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enable
+    version: 18.1.5
+
+keywords:
+  - impersonate
+  - toucan
+
+maintainers:
+  - name: Riadh Meghenem
+    email: riadh.meghenem@toucantoco.com

@@ -1,0 +1,180 @@
+# Default values for impersonate.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/toucantoco/impersonate-token-service
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Configure redis using this value
+# cf: https://artifacthub.io/packages/helm/bitnami/redis/18.1.5
+redis:
+  enable: true
+  auth:
+    enabled: false
+  architecture: standalone
+
+# use the --set-file flag to specify the key path to load
+# ex: --set-file keys.impersonateUserTokenRsaKey=/path/to/my/key.rsa
+keys:
+  impersonateUserTokenRsaKey: "CHANGE_ME"
+  embedTokenRsaKey: "CHANGE_ME"
+
+# Impersonate Service configuration
+configuration:
+  redis:
+    # Redis address
+    addr: "impersonate-redis-master:6379"
+  oidcImpersonateTokenClient:
+    # The client ID of the OIDC client
+    clientId: "CLIENT_ID"
+    # The client secret of the OIDC client
+    clientSecret: "CLIENT_SECRET"
+    # Token uri of the OIDC provider
+    tokenEndpoint: "/oauth/oauth-token"
+    # The OIDC provider's url
+    providerUrl: "https://auth.example.local"
+    # The OIDC impersonate user grant type
+    userImpersonateGrantType: "urn:ietf:params:oauth:grant-type:jwt-bearer"
+    # Rsa private key to sign the jwt assertion token
+    jwtAssertionPrivateKeyPath:  "/etc/impersonate-token-service/keys/impersonate_user_rsa_4096_priv.pem"
+    # The OIDC provider's issuer
+    providerIssuer: "-toucan-impersonate-service-client"
+    # Jwt assertion token expiration in seconds
+    tokenexpirationinseconds: 3600
+    # Scope Used to impersonate a user
+    impersonateUserScope: "impersonate simple_user email profile"
+  jwksConfiguration:
+    # The OIDC provider's url
+    jwksProviderUri: "https://auth.example.local/"
+    # The OIDC provider's jwks endpoint
+    jwksProviderEndpoint: "/oauth/oauth-anonymous/jwks"
+    # Supported algorithms
+    jwksAlgorithm:
+      - "RS512"
+    # Supported audiences
+    jwksAudience: "toucan-micro-service-client"
+    # Max age of a jwks in cache
+    jwksCacheMaxAgeSeconds: 43200
+    # Max time between two jwks fetch when not found in cache
+    jwksCacheMaxStaleSeconds: 300
+    # Truster issuer uri to validate the jwt issuer
+    jwksTrustedIssuerUri: "https://auth.example.local/"
+    jwksTrusterIssuerEndpoint: "/oauth/oauth-anonymous"
+  tracing:
+    # Enable tracing
+    enable: false
+    # Sampling mode: always_on, always_off, trace_id_ratio, trace_id_modulo
+    sampling: always_on
+    # Sampling rate
+    SampleRate: 1
+    # Http exporter
+    http:
+      # Endpoint
+      endpoint: "tempo.example.guru"
+      # Url path
+      urlPath: "/otlp/v1/traces"
+      # Insecure (http or https)
+      insecure: false
+      # Authentication
+      authentication: true
+      # Username
+      user: "USER"
+      # Password
+      password: "PASSWORD"
+    # Attributes
+    attributes:
+      # Service name
+      serviceName: "impersonate-token-service"
+  PyroscopeProfiling:
+    # Enable Pyroscope
+    enable: false
+    # Application name
+    applicationName: impersonate-token
+    # Pyroscope server address
+    serverAddress: "http://pyroscope-server:4040"
+    # Sample rate
+    sampleRate:    100
+    # basicAuth
+    basicAuthEnabled: false
+    # basic Auth Username
+    basicAuthUsername: ""
+    # basic Auth Password
+    basicAuthPassword: ""
+  logging:
+    debug: false
