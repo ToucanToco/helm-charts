@@ -1,0 +1,378 @@
+# Default values for laputa.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/toucantoco/backend
+  # repository: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  # tag: latest
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext:
+  fsGroup: 1000
+  # fsGroup: 2000
+
+securityContext: {} 
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 5000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: laputa.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: laputa-tls
+  #    hosts:
+  #      - laputa.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+redis:
+  enable: true
+  auth:
+    enabled: false
+  architecture: standalone
+
+mongodb:
+  enable: true
+  architecture: standalone
+  auth:
+    enabled: true
+    rootUser: admin
+    rootPassword: ADMIN_PASSWORD_CHANGE_ME
+  persistence:
+    enabled: false
+  extraEnvVars:
+    - name: TOUCAN_MONGO_APP_USER
+      value: app
+    - name: TOUCAN_MONGO_APP_PASSWORD
+      value: USER_PASSWORD_CHANGE_ME
+    - name: TOUCAN_MONGO_APP_READONLY_USER
+      value: app_readonly
+    - name: TOUCAN_MONGO_APP_READONLY_PASSWORD
+      value: USER_READONLY_PASSWORD_CHANGE_ME
+  initdbScripts:
+    toucan_init_script.js: |
+      use admin
+      // Function to init or update user with the right role
+      // ===================================================
+      function updateOrCreateUser(username, password, role) {
+        const payloadUpdateOrCreateUser = {
+          pwd:   password,
+          roles: [{ role: role, db: 'admin' }]
+        }
+
+        var userExists = db.getUser(username);
+        if (userExists) {
+          db.updateUser(
+            username,
+              {
+                  ...payloadUpdateOrCreateUser
+              }
+          );
+        } 
+        else {
+          db.createUser({
+              user:  username,
+              ...payloadUpdateOrCreateUser
+          });
+        }
+      }
+
+
+      // Create readWriteDropAnyDatabase role
+      // ====================================
+
+      const payloadReadWriteDropAnyDatabase = {
+        privileges: [],
+        roles:      [{role:"readWriteAnyDatabase",db:"admin"},{role:"dbAdminAnyDatabase",db:"admin"}]
+      }
+
+      var roleExists = db.runCommand({rolesInfo: {role:"readWriteDropAnyDatabase",db:"admin"}}).roles.length
+      if (roleExists == 0) {
+        db.createRole({
+          role: "readWriteDropAnyDatabase",
+          privileges: [],
+          roles:      [{role:"readWriteAnyDatabase",db:"admin"},{role:"dbAdminAnyDatabase",db:"admin"}]
+        });
+      } else {
+        db.updateRole(
+          "readWriteDropAnyDatabase",
+          {
+            ...payloadReadWriteDropAnyDatabase
+          }
+        );
+      }
+
+
+      // Create users for the backend
+      // ============================
+      updateOrCreateUser(
+        process.env.TOUCAN_MONGO_APP_USER,
+        process.env.TOUCAN_MONGO_APP_PASSWORD,
+        'readWriteDropAnyDatabase'
+      )
+      updateOrCreateUser(
+        process.env.TOUCAN_MONGO_APP_READONLY_USER,
+        process.env.TOUCAN_MONGO_APP_READONLY_PASSWORD,
+        'readAnyDatabase'
+      )
+
+
+      // Update the mongo version flag (need when we upgrade Mongo Engine)
+      // =============================
+      db.adminCommand({
+          setFeatureCompatibilityVersion: '5.0'
+      });
+
+storage:
+  storage:
+    type: PersistentVolume
+    size: 10Gi
+    mountPath: /app/storage
+    annotations: {}
+    accessModes:
+      - ReadWriteOnce
+  tmp:
+    type: PersistentVolume
+    size: 1Gi
+    mountPath: /app/tmp
+    annotations: {}
+    accessModes:
+      - ReadWriteOnce
+  logs:
+    type: emptyDir
+    mountPath: /app/logs
+
+configuration:
+  tenancy:
+    workspace_id: WORKSPACE_ID
+    tenant_id: TENANT_ID
+    toucan_oidc_configuration:
+      algorithms:
+      - RS512
+      audiences:
+      - workspace-toucan
+      - toucan-infra-admin-client
+      - toucan-embed-client
+      - toucan-impersonate-service-client
+      jwks:
+        uri: https://auth-service.example.com/TENANT_ID/oauth/oauth-anonymous/jwks
+        cache_ttl: 3600
+        min_time_between_attempts: 60
+    toucan_user_management:
+      uri: https://auth-service.example.com/TENANT_ID/user-management/graphql/admin
+      vault:
+        secret_path: https://vault-service.example.com/v1/toucan_oauthapp_tenant/self/TENANT_ID/toucan-admin-management-client
+        token_header: X-Vault-Token
+        token: VAULT_TOKEN
+    toucan_micro_service_client:
+      vault:
+        secret_path: https://vault-service.example.com/v1/toucan_oauthapp_tenant/self/TENANT_ID/toucan-micro-service-client
+        token_header: X-Vault-Token
+        token: VAULT_TOKEN
+    toucan_websocket_client:
+      client_id: toucan-laputa-websocket-client
+      client_secret: CLIENT_WEBSOCKET_SECRET
+      uri: https://auth-service.example.com/TENANT_ID/oauth/oauth-introspect
+    toucan_public_embed_client:
+      client_id: toucan-embed-client
+      jwt_assertion_audience: https://auth-service.example.com/TENANT_ID/oauth/oauth-anonymous
+      jwt_assertion_issuer: TENANT_ID-embed
+    curity_admin_api_configuration:
+      username: toucan-workspace
+      password: CLIENT_WORKSPACE_SECRET
+      embed_client_public_key_id: TENANT_ID-public_embed_verification_key
+      curity_admin_url_prefix: https://auth-service.example.com/admin/api/restconf/data
+      oauth_profile_id: TENANT_ID-oauth
+    impersonate_token_service_configuration:
+      url: https://impersonate-token-service-fr-indus.example.com
+  dataService:
+    http_data_service:
+      key: KEY_CHANGE_ME
+      secret: SECRET_CHANGE_ME
+      host: https://http-data-service-fr.example.com
+  common:
+    # Service variables
+    TOUCAN_NGINX_SUPERVISOR:         'off'
+    # Main variables
+    TOUCAN_INSTANCE_NAME:            'toucan-on-prem'
+    TOUCAN_VHOST_SERVER_NAME:        'laputa.example.guru'
+    TOUCAN_FRONTEND_URLS:            '["https://frontend.example.guru"]'
+    TOUCAN_JWT_SECRET_KEY:           'JWT_SECRET_KEY_CHANGE_ME'
+    TOUCAN_DB_ENCRYPTION_SECRET:     'DB_ENCRYPTION_SECRET_CHANGE_ME'
+    # Mongo variables
+    TOUCAN_MONGODB_HOST:             'laputa-mongodb'
+    TOUCAN_MONGODB_PORT:             '27017'
+    TOUCAN_MONGODB_USER:             'app'
+    TOUCAN_MONGODB_PASS:             'USER_PASSWORD_CHANGE_ME'
+    TOUCAN_MONGODB_READONLY_USER:    'app_readonly'
+    TOUCAN_MONGODB_READONLY_PASS:    'USER_READONLY_PASSWORD_CHANGE_ME'
+    TOUCAN_MONGODB_ADMIN_USER:       'admin'
+    TOUCAN_MONGODB_ADMIN_PASS:       'ADMIN_PASSWORD_CHANGE_ME'
+    # Redis variables
+    TOUCAN_REDIS_HOST:               'laputa-redis-master'
+    TOUCAN_REDIS_PORT:               '6379'
+    TOUCAN_CACHE:                    'disable'
+    # Workers variables
+    TOUCAN_GUNICORN_WORKERS:         '4'
+    TOUCAN_CELERY_MAX_WORKERS:       '10'
+    TOUCAN_CELERY_QUICK_MAX_WORKERS: '10'
+    # Mail variables
+    TOUCAN_SEND_MAIL_PROVIDER:       'sendgrid'
+    TOUCAN_SENGRID_API_KEY:          'API_KEY_CHANGE_ME'
+    TOUCAN_SEND_MAIL_FROM_EMAIL:     'noreply@mail.example.com'
+    TOUCAN_SEND_MAIL_FROM_NAME:      'Toucan Toco'
+    # Sentry variables
+    TOUCAN_SENTRY_PROCESS:           'disable'
+    TOUCAN_SENTRY_DSN:               'https://sentry.io/'
+    # Webpush variables
+    TOUCAN_WEBPUSH:                  'disable'
+    # Analytics variables
+    TOUCAN_ANALYTICS:                       '{"mixpanel_api_secret": "MIX_PANEL_API_SECRET", "flag": "freemium", "instance_name": "", "refresh_cron_frequency": {"freemium": "1 3 * * 0", "premium": "10 14 * * 1-6"}}'
+    TOUCAN_PUBLIC_ANALYTICS_FLAG:           'enable'
+    TOUCAN_MS_TEAMS_APP_ID:                 'MS_TEAMS_APP_ID'
+    TOUCAN_MS_TEAMS_APP_PASSWORD:           'MS_TEAMS_APP_PASSWORD'
+    TOUCAN_MS_TEAMS_SERVICE_URL:            'https://smba.trafficmanager.net/fr/'
+    TOUCAN_MS_TEAMS_REGISTER_TEAM_PASSWORD: 'MS_TEAMS_REGISTER_TEAM_PASSWORD'
+    # Shaun variables (Toucan internal usage)
+    TOUCAN_SHAUN_URL:                       'https://shaun.example.com'
+    TOUCAN_SHAUN_OIDC_PROVIDER:             'enable'
+    TOUCAN_SHAUN_CLIENT_ID:                 'CLIENT_ID'
+    TOUCAN_SHAUN_CLIENT_SECRET:             'CLIENT_SECRET_CHANGE_ME'
+    # Misc variables
+    TOUCAN_EMBED:                           'enable'
+    TOUCAN_WHITE_LABEL:                     'enable'
+    TOUCAN_GUEST_CREATION:                  'disable'
+    TOUCAN_DATAWALL:                        'disable'
+    TOUCAN_PDF_REPORT:                      'enable'
+    TOUCAN_ALERTS:                          'disable'
+    TOUCAN_GROUPS_PRIVILEGES:               'disable'
+    TOUCAN_PRESENTATION_MODE:               'enable'
+    TOUCAN_ALLOW_UPLOAD_AUGMENT:            'disable'
+    TOUCAN_ALLOW_UPLOAD_PERMISSIONS:        'disable'
+    TOUCAN_INSTANT_DATA_STORIES:            'disable'
+    TOUCAN_DEACTIVATE_SQL_VQB_TRANSLATOR:   'disable'
+    TOUCAN_USE_JWT_COOKIES:                 'enable'
+    TOUCAN_SLOW_REQUEST_THRESHOLD:          '-1'
+    TOUCAN_TOKEN_VALIDITY:                  '2 hours'
+    TOUCAN_REFRESH_TOKEN_VALIDITY:          '30 days'
+    TOUCAN_SHORT_PASSWORD_TOKEN_VALIDITY:   '2 hours'
+    TOUCAN_LONG_PASSWORD_TOKEN_VALIDITY:    '2 hours'
+    AIRCALL2_CLIENT_ID:                     ''
+    AIRCALL2_CLIENT_SECRET:                 ''
+    BEARER_API_KEY:                         'BEARER_API_KEY_CHANGE_ME'
+    GOOGLESHEETS2_CLIENT_ID:                ''
+    GOOGLESHEETS2_CLIENT_SECRET:            ''
+    TOUCAN_OLD_AUGMENT_WHITELIST:           '[]'
+    TOUCAN_EXTRA_CONNECTORS:                '[]'
+    TOUCAN_SECRETS:                         '{}'
+    TOUCAN_BINB:                            '{}'
+    TOUCAN_EXECSUM_PAGINATED_RENDERING_NUMBER_OF_PAGES_PER_FILE: '4'
+    TOUCAN_EXECSUM_PAGINATED_RENDERING_GENERATED_FILES_LIMIT:    '10'
+    # Toucan Plan variables
+    TOUCAN_INSTANCE_PLAN:            'small'
+    TOUCAN_INSTANCE_API_CPU:         '4'
+    TOUCAN_INSTANCE_API_MEMORY:      '4'
+    TOUCAN_INSTANCE_WORKER_CPU:      '4'
+    TOUCAN_INSTANCE_WORKER_MEMORY:   '8'
+    # Toucan Provider variables
+    TOUCAN_PROVIDER:                 'ONLINE'
+    TOUCAN_REGION:                   'FR_PARIS'
+    # Live data
+    TOUCAN_MAX_ROWS_FOR_LIVE_DATA:   '1000000'
+    # Prepared Datasets
+    TOUCAN_DEFAULT_SOURCE_ROWS_SUBSET_FOR_PREPARED_DATASET_PREVIEW: '10000'
+    TOUCAN_QUERY_CACHE:              'enable'
+    TOUCAN_QUERY_CACHE_MIN_TIME:     '1000 ms'
+    # Gotenberg screenshot service
+    TOUCAN_GOTENBERG_FLAG:           'experimental'
+    # Throttle rate
+    TOUCAN_THROTTLE_RATE_STATUS:     'enable'
+    TOUCAN_THROTTLE_RATE_LIMIT:      '5/minute'
+    # If it's behind a proxy or not
+    TOUCAN_IS_BEHIND_PROXY:          'enable'
+    TOUCAN_GOTENBERG_URL:            'https://public-screenshot-v7-eu.example.com'
+    TOUCAN_GOTENBERG_USERNAME:       'paparazzi'
+    TOUCAN_GOTENBERG_PASSWORD:       'plop'
+    TOUCAN_DATASOURCE_UPLOAD_S3_FLAG: 'disable'
+    # Pizzly conf
+    TOUCAN_PIZZLY_URL:                  'bearer-us.example.com'
+    TOUCAN_PIZZLY_SECRET_KEY:           'PIZZLY_SECRET_KEY_CHANGE_ME'
+    TOUCAN_MULTIPROCESS_INSERTION:      'enable'
+    TOUCAN_SIMPLE_LOADER:               'disable'
+    TOUCAN_SUPPORT_OLD_STYLE_PERMISSIONS: 'enable'
+    TOUCAN_LIMIT_VALUE_FOR_METADATA_INFERING: '100'
+    TOUCAN_ADDITIONAL_SMALL_APP_TEMPLATE_IDS: '[]'
+    TOUCAN_READ_ONLY_MODE:                    'disable'
+    TOUCAN_LOG_LEVEL:                         'INFO'
+    # Flagsmith
+    TOUCAN_FLAGSMITH_API_URL:         'https://feature-flag-api.toucantoco.guru'
+    TOUCAN_FLAGSMITH_API_KEY:         'FLAGSMITH_API_KEY_CHANGE_ME'
+    TOUCAN_FLAGSMITH_API_TOKEN:       'FLAGSMITH_API_TOKEN_CHANGE_ME'
+    TOUCAN_FLAGSMITH_ENVIRONMENT_KEY: 'FLAGSMITH_ENVIRONMENT_KEY_CHANGE_ME'
+    # Layout service
+    TOUCAN_LAYOUT_SERVICE_FLAG:         'enable'
+    TOUCAN_LAYOUT_SERVICE_URL:          'https://layout-service-fr-indus.example.com'
+    # Dataset service
+    TOUCAN_DATASET_SERVICE:             'enable'
+    TOUCAN_DATASET_SERVICE_URL:         'https://dataset-service-fr-indus.example.com'
+    TOUCAN_TENANCY_FLAG:         'enable'
+    TOUCAN_IS_TRIAL:             'False'
