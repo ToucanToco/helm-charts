@@ -61,6 +61,32 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/impersonate-0.1.0/impersonate-0.1.0.tgz
     version: 0.1.0
+  laputa:
+  - apiVersion: v2
+    appVersion: v113.0.1
+    created: "2023-10-24T08:17:08.380484105Z"
+    dependencies:
+    - condition: redis.enable
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.13.2
+    - condition: mongodb.enable
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    description: A Helm chart for Laputa
+    digest: 5f99705c396db50a0e932eeb652e1b2ebe948ea327928ea9f44561ecbe97265d
+    keywords:
+    - laputa
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: laputa
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.1.0/laputa-0.1.0.tgz
+    version: 0.1.0
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
@@ -114,4 +140,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-18T13:20:24.335818218Z"
+generated: "2023-10-24T08:17:08.380520006Z"
