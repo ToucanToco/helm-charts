@@ -1,0 +1,1071 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: toucan-on-prem-configuration
+data:
+  config.xml: |-
+    <config xmlns="http://tail-f.com/ns/config/1.0">
+      <environments xmlns="https://curity.se/ns/conf/base">
+        <environment>
+          <name>toucan-authN-service</name>
+          <admin-service>
+            <http>
+              <listening-host>0.0.0.0</listening-host>
+              <listening-port>6749</listening-port>
+              <enable-http-v2>true</enable-http-v2>
+              <web-ui>
+              </web-ui>
+              <restconf>
+              </restconf>
+            </http>
+          </admin-service>
+          <themes>
+            <default-theme>
+              <theme-css-properties>Cjpyb290IHsKICAtLXBhZ2UtYmFja2dyb3VuZC1jb2xvcjogI2QwZThlMTsKICAtLXBhZ2UtcG93ZXJlZC1ieS1kaXNwbGF5OiBub25lOwogIC0tY29sb3ItcHJpbWFyeTogIzg4YjJhODsKICAtLWNvbG9yLXByaW1hcnktZGFyazogIzRlNzY2ZDsKICAtLWNvbG9yLXByaW1hcnktbWVkaXVtOiAjNWM4YzgyOwogIC0tY29sb3Itc3VjY2VzczogIzQzOTUwZDsKICAtLWNvbG9yLWluZm86ICMxMjZlZmY7CiAgLS1jb2xvci1kYW5nZXI6ICNkZTAxMDA7CiAgLS1jb2xvci1zcG90OiAjMTI2ZWZmOwogIC0tY29sb3ItbGluazogIzY3NzY5MjsKICAtLWNvbG9yLWxpbmstaG92ZXI6ICM4OGIyYTg7CiAgLS1hbGVydC1ib3JkZXItcmFkaXVzOiAwcHg7CiAgLS1jb2xvci1oZWFkaW5nOiAjMjUyNTI1OwogIC0tY29sb3ItdGV4dDogIzI1MjUyNTsKICAtLXdlbGwtYmFja2dyb3VuZC1jb2xvcjogI2Y1ZjZmODsKICAtLXdlbGwtYm9yZGVyLWNvbG9yOiAjZjVmNmY4OwogIC0td2VsbC1ib3JkZXItd2lkdGg6IDBweDsKICAtLXdlbGwtYm9yZGVyLXN0eWxlOiBub25lOwogIC0td2VsbC1ib3JkZXItcmFkaXVzOiAwcHg7CiAgLS13ZWxsLWJveC1zaGFkb3c6IG5vbmU7CiAgLS1sb2dpbi1zeW1ib2wtZGlzcGxheTogbm9uZTsKICAtLWZvcm0tbGFiZWwtY29sb3I6ICMwMDAwMDA7CiAgLS1mb3JtLWZpZWxkLWJvcmRlci13aWR0aDogMXB4OwogIC0tZm9ybS1maWVsZC1iYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmOwogIC0tZm9ybS1maWVsZC1ib3gtc2hhZG93LWZvY3VzOiAjODhCMkE4IDAgMCAwIDNweDsKICAtLWZvcm0tZmllbGQtYm9yZGVyLXJhZGl1czogMHB4OwogIC0tbG9naW4tbG9nby1kaXNwbGF5OiBub25lOwogIC0tdHlwZS1zYW5zOiBNb250c2VycmF0LHNhbnMtc2VyaWY7CiAgLS10eXBlLXdlaWdodDogNzAwOwogIC0tdHlwZS1ib2xkOiAnTW9udHNlcnJhdCcsIHNhbnMtc2VyaWY7CiAgLS10eXBlLXdlaWdodC1ib2xkOiBub3JtYWw7CiAgLS1idXR0b24tcGFkZGluZy15OiAwLjhyZW07CiAgLS1idXR0b24tYm9yZGVyLXJhZGl1czogMHB4OwogIC0tYnV0dG9uLWZvbnQtc2l6ZTogMS4zcmVtOwp9</theme-css-properties>
+              <theme-custom-css>OnJvb3QgewogICAgLS1wYWdlLWJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50OwogICAgLS13ZWxsLWJvcmRlci1jb2xvcjogdHJhbnNwYXJlbnQ7CiAgICAtLXdlbGwtYmFja2dyb3VuZC1jb2xvcjogcmdiYSgyNTUsIDI1NSwgMjU1LCAuNSk7CiAgICAtLWZvcm0tZmllbGQtYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7Cn0KCmh0bWwgewogICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7CiAgICBmb250LXNpemU6IDE2cHg7CiAgICBmb250LWZhbWlseTogJ01vbnRzZXJyYXQnLCBzYW5zLXNlcmlmOwogICAgZm9udC13ZWlnaHQ6IDcwMDsKfQoKaW5wdXQgewogICAgY29sb3I6IHZhcigtLWNvbG9yLXRleHQpOwp9CgouYnV0dG9uIHsKICAgIHRleHQtdHJhbnNmb3JtOiB1cHBlcmNhc2U7CiAgICBsZXR0ZXItc3BhY2luZzogMXB4Owp9</theme-custom-css>
+              <template-variables>
+                <name>_configured_logo_inside</name>
+                <value>true</value>
+              </template-variables>
+              <template-variables>
+                <name>_configured_single_color_authenticator_chooser</name>
+                <value>true</value>
+              </template-variables>
+            </default-theme>
+          </themes>
+          <services>
+            <zones>
+              <default-zone>
+                <symmetric-key>{{ .Values.configuration.encryptionKey }}</symmetric-key>
+                <allowed-origins-for-cors>http://localhost:8000</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://*.toucantoco.com</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://*.toucantoco.guru</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://alice.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://david.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://david2.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://demo-staging-public.toucantoco.com/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://demo-staging.toucantoco.com/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://la-cuisine.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://la-tablee.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://riadh-test.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://riadh.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://tifftouff.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://toucan-v3.toucantoco.com/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://v3-new-archi.toucantoco.guru/</allowed-origins-for-cors>
+                <allowed-origins-for-cors>https://wgorge.toucantoco.guru/</allowed-origins-for-cors>
+              </default-zone>
+            </zones>
+            <service-role>
+              <id>default</id>
+              <location>on-prem</location>
+              <protocol>http</protocol>
+              <endpoints>{{ .Values.configuration.tenantId }}-authentication-anonymous</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-authentication-authentication</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-authentication-registration</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-assisted-token</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-authorize</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-backchannel-authentication</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-introspect</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-oauth-anonymous</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-revoke</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-session</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-token</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-oauth-userinfo</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-user-management-api-admin</endpoints>
+              <endpoints>{{ .Values.configuration.tenantId }}-user-management-graphql-admin</endpoints>
+            </service-role>
+          </services>
+        </environment>
+      </environments>
+      <profiles xmlns="https://curity.se/ns/conf/base">
+        <profile>
+          <id>{{ .Values.configuration.tenantId }}-authentication</id>
+          <type xmlns:auth="https://curity.se/ns/conf/profile/authentication">auth:authentication-service</type>
+          <settings>
+            <authentication-service xmlns="https://curity.se/ns/conf/profile/authentication">
+              <authentication-actions>
+                <authentication-action>
+                  <id>default_copy_attribute</id>
+                  <copy-attribute xmlns="https://curity.se/ns/ext-conf/copy-attribute">
+                    <operation>
+                      <name>subject</name>
+                      <source-location>subject-attributes</source-location>
+                      <source-path>email</source-path>
+                      <target-location>subject-attributes</target-location>
+                      <target-path>subject</target-path>
+                    </operation>
+                  </copy-attribute>
+                </authentication-action>
+                <authentication-action>
+                  <id>default_create_account</id>
+                  <auto-create-account xmlns="https://curity.se/ns/ext-conf/auto-create-account">
+                    <account-manager>
+                      <id>{{ .Values.configuration.tenantId }}-account-manager</id>
+                    </account-manager>
+                    <add-extra-attributes>false</add-extra-attributes>
+                    <auto-create-link>true</auto-create-link>
+                    <email-attribute>email</email-attribute>
+                    <username-attribute>email</username-attribute>
+                  </auto-create-account>
+                </authentication-action>
+                <authentication-action>
+                  <id>shaun_legacy_laputa_roles_update_attribute</id>
+                  <update-account xmlns="https://curity.se/ns/ext-conf/update-account">
+                    <account-manager>
+                      <id>{{ .Values.configuration.tenantId }}-account-manager</id>
+                    </account-manager>
+                    <operation>
+                      <name>legacy_laputa_roles</name>
+                      <replace-attribute>
+                        <source-attribute-is-required>false</source-attribute-is-required>
+                        <source-attribute-location>subject-attributes</source-attribute-location>
+                        <source-attribute-path>legacy_laputa_role</source-attribute-path>
+                        <target-attribute-path>legacyLaputaRoles</target-attribute-path>
+                      </replace-attribute>
+                    </operation>
+                  </update-account>
+                </authentication-action>
+              </authentication-actions>
+              <authenticators>
+                <authenticator>
+                  <id>user-password</id>
+                  <html-form xmlns="https://curity.se/ns/conf/authenticators/html-form">
+                    <account-manager>{{ .Values.configuration.tenantId }}-account-manager</account-manager>
+                    <credential-manager>{{ .Values.configuration.tenantId }}-credential-manager</credential-manager>
+                  </html-form>
+                </authenticator>
+              </authenticators>
+              <protocols>
+                <protocol>
+                  <id>default-simple-protocol</id>
+                  <simple-api/>
+                </protocol>
+              </protocols>
+            </authentication-service>
+          </settings>
+          <endpoints>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-authentication-anonymous</id>
+              <uri>/{{ .Values.configuration.tenantId }}/authentication/anonymous</uri>
+              <endpoint-kind>auth-anonymous</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-authentication-authentication</id>
+              <uri>/{{ .Values.configuration.tenantId }}/authentication/authentication</uri>
+              <endpoint-kind>auth-authentication</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-authentication-registration</id>
+              <uri>/{{ .Values.configuration.tenantId }}/authentication/registration</uri>
+              <endpoint-kind>auth-registration</endpoint-kind>
+            </endpoint>
+          </endpoints>
+          <token-issuers>
+            <default-token-issuer>
+              <jwt-issuer-settings>
+                <algorithm>RS512</algorithm>
+                <signing-key-id>default-toucan-signing-key</signing-key-id>
+              </jwt-issuer-settings>
+              <default-data-source>{{ .Values.configuration.tenantId }}-data-source</default-data-source>
+            </default-token-issuer>
+          </token-issuers>
+        </profile>
+        <profile>
+          <id>{{ .Values.configuration.tenantId }}-oauth</id>
+          <type xmlns:as="https://curity.se/ns/conf/profile/oauth">as:oauth-service</type>
+          <settings>
+            <authorization-server xmlns="https://curity.se/ns/conf/profile/oauth">
+              <account-manager>{{ .Values.configuration.tenantId }}-account-manager</account-manager>
+              <authentication-service>
+                <authentication-profile>{{ .Values.configuration.tenantId }}-authentication</authentication-profile>
+              </authentication-service>
+              <client-capabilities>
+                <code>
+                </code>
+                <implicit/>
+                <resource-owner-password-credentials>
+                  <credential-manager>{{ .Values.configuration.tenantId }}-credential-manager</credential-manager>
+                </resource-owner-password-credentials>
+                <client-credentials/>
+                <introspection/>
+                <token-exchange/>
+                <assisted-token>
+                </assisted-token>
+                <backchannel-authentication>
+                </backchannel-authentication>
+                <assertion>
+                  <asymmetrically-signed-jwt>
+                    <signature-algorithm>RS512</signature-algorithm>
+                  </asymmetrically-signed-jwt>
+                  <clock-skew>10</clock-skew>
+                </assertion>
+              </client-capabilities>
+              <scopes>
+                <scope>
+                  <id>accounts</id>
+                  <description>Toucan custom claims to access admin management api</description>
+                  <claims>groups</claims>
+                </scope>
+                <scope>
+                  <id>address</id>
+                  <description>OpenId Connect address scope</description>
+                  <claims>address</claims>
+                </scope>
+                <scope>
+                  <id>admin</id>
+                  <description>Toucan custom claims to represent the admin scope</description>
+                  <claims>tenant_id</claims>
+                </scope>
+                <scope>
+                  <id>email</id>
+                  <description>OpenId Connect email scope</description>
+                  <claims>email</claims>
+                  <claims>email_verified</claims>
+                </scope>
+                <scope>
+                  <id>embed</id>
+                  <description>Toucan custom claims to represent the embed scope</description>
+                  <claims>embed_context</claims>
+                  <claims>tenant_id</claims>
+                </scope>
+                <scope>
+                  <id>impersonate</id>
+                  <description>Toucan custom claims to represent an impersonate scope</description>
+                  <claims>impersonated</claims>
+                  <claims>tenant_id</claims>
+                </scope>
+                <scope>
+                  <id>micro-service</id>
+                  <description>Toucan custom claims to represent a micro-service scope</description>
+                  <claims>tenant_id</claims>
+                </scope>
+                <scope>
+                  <id>openid</id>
+                  <description>Standard OpenID Connect scope</description>
+                </scope>
+                <scope>
+                  <id>phone</id>
+                  <description>OpenId Connect phone scope</description>
+                  <claims>phone_number</claims>
+                  <claims>phone_number_verified</claims>
+                </scope>
+                <scope>
+                  <id>profile</id>
+                  <description>OpenId Connect profile scope</description>
+                  <claims>birthdate</claims>
+                  <claims>family_name</claims>
+                  <claims>gender</claims>
+                  <claims>given_name</claims>
+                  <claims>locale</claims>
+                  <claims>middle_name</claims>
+                  <claims>name</claims>
+                  <claims>nickname</claims>
+                  <claims>picture</claims>
+                  <claims>preferred_username</claims>
+                  <claims>profile</claims>
+                  <claims>updated_at</claims>
+                  <claims>website</claims>
+                  <claims>zoneinfo</claims>
+                </scope>
+                <scope>
+                  <id>simple_user</id>
+                  <description>Toucan custom claims for a simple user scope</description>
+                  <claims>account_id</claims>
+                  <claims>legacy_laputa_roles</claims>
+                  <claims>tenant_id</claims>
+                </scope>
+              </scopes>
+              <claims>
+                <claim>
+                  <name>account_id</name>
+                  <description>Toucan claims to access account id</description>
+                  <value-provided-by>account-manager-custom-claims-provider</value-provided-by>
+                  <transformation>
+                    <input-attribute-names>id</input-attribute-names>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>address</name>
+                  <description>OpenID Connect address claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>birthdate</name>
+                  <description>OpenID Connect birthdate claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>email</name>
+                  <description>OpenID Connect email claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>email_verified</name>
+                  <description>OpenID Connect email_verified claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>embed_context</name>
+                  <description>Toucan claims containing an embed_context</description>
+                  <value-provided-by>toucan-authentication-context-claims-provider</value-provided-by>
+                  <transformation>
+                    <input-attribute-names>embed_context</input-attribute-names>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>family_name</name>
+                  <description>OpenID Connect family_name claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>gender</name>
+                  <description>OpenID Connect gender claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>given_name</name>
+                  <description>OpenID Connect given_name claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>groups</name>
+                  <description>Toucan claims to access admin management api</description>
+                  <transformation>
+                    <input-attribute-names>groups</input-attribute-names>
+                    <value-transformation-procedure>ZnVuY3Rpb24gZ2VuZXJhdGUoKSB7CiAgICByZXR1cm4gWyJhZG1pbiJdOwp9</value-transformation-procedure>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>impersonated</name>
+                  <description>Toucan claims indicating that the user is impersonated</description>
+                  <value-provided-by>account-manager-custom-claims-provider</value-provided-by>
+                  <transformation>
+                    <input-attribute-names>impersonated</input-attribute-names>
+                    <value-transformation-procedure>ZnVuY3Rpb24gdHJhbnNmb3JtKGF0dHJpYnV0ZXMpIHsKICByZXR1cm4gdHJ1ZTsKfQ==</value-transformation-procedure>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>legacy_laputa_roles</name>
+                  <description>Toucan claims containing legacy laputa roles of the user</description>
+                  <value-provided-by>account-manager-custom-claims-provider</value-provided-by>
+                  <transformation>
+                    <input-attribute-names>legacyLaputaRoles</input-attribute-names>
+                    <value-transformation-procedure>ZnVuY3Rpb24gdHJhbnNmb3JtKGF0dHJpYnV0ZXMpIHsKICAvLyBUcmFuc2Zvcm0gdGhlIGF0dHJpYnV0ZXMgYW5kIHJldHVybiB0aGUgYXBwcm9wcmlhdGUgdmFsdWUgZm9yIHRoZSBjbGFpbQogIHJldHVybiBhdHRyaWJ1dGVzLmxlZ2FjeUxhcHV0YVJvbGVzID8gSlNPTi5wYXJzZShhdHRyaWJ1dGVzLmxlZ2FjeUxhcHV0YVJvbGVzKSA6IHt9Owp9</value-transformation-procedure>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>locale</name>
+                  <description>OpenID Connect locale claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>middle_name</name>
+                  <description>OpenID Connect middle_name claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>name</name>
+                  <description>OpenID Connect name claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>nickname</name>
+                  <description>OpenID Connect nickname claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>phone_number</name>
+                  <description>OpenID Connect phone_number claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>phone_number_verified</name>
+                  <description>OpenID Connect phone_number_verified claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>picture</name>
+                  <description>OpenID Connect picture claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>preferred_username</name>
+                  <description>OpenID Connect preferred_username claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>profile</name>
+                  <description>OpenID Connect profile claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>tenant_id</name>
+                  <description>Toucan claims to access tenant_id</description>
+                  <transformation>
+                    <input-attribute-names>tenant_id</input-attribute-names>
+                    <value-transformation-procedure>ZnVuY3Rpb24gZ2VuZXJhdGUoKSB7CiAgICByZXR1cm4gIjI4MTRjNjgwLWFmYjEtNGQ2NC05NWYyLWMyNzFiNmE5YTNlNCI7Cn0=</value-transformation-procedure>
+                  </transformation>
+                </claim>
+                <claim>
+                  <name>updated_at</name>
+                  <description>OpenID Connect updated_at claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>website</name>
+                  <description>OpenID Connect website claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claim>
+                  <name>zoneinfo</name>
+                  <description>OpenID Connect zoneinfo claim</description>
+                  <value-provided-by>account-manager-claims-provider</value-provided-by>
+                </claim>
+                <claims-value-provider>
+                  <id>account-manager-claims-provider</id>
+                  <account-manager-claims-provider xmlns="https://curity.se/ns/ext-conf/account-manager-claims-provider">
+                    <account-manager>
+                      <id>{{ .Values.configuration.tenantId }}-account-manager</id>
+                    </account-manager>
+                    <map-account-to-openid-connect-claims>true</map-account-to-openid-connect-claims>
+                    <resolve-claims-for-inactive-account>true</resolve-claims-for-inactive-account>
+                  </account-manager-claims-provider>
+                </claims-value-provider>
+                <claims-value-provider>
+                  <id>account-manager-custom-claims-provider</id>
+                  <account-manager-claims-provider xmlns="https://curity.se/ns/ext-conf/account-manager-claims-provider">
+                    <account-manager>
+                      <id>{{ .Values.configuration.tenantId }}-account-manager</id>
+                    </account-manager>
+                    <map-account-to-openid-connect-claims>false</map-account-to-openid-connect-claims>
+                    <resolve-claims-for-inactive-account>true</resolve-claims-for-inactive-account>
+                  </account-manager-claims-provider>
+                </claims-value-provider>
+                <claims-value-provider>
+                  <id>authentication-subject-claims-provider</id>
+                  <authentication-subject-claims-provider xmlns="https://curity.se/ns/ext-conf/authentication-subject-claims-provider"/>
+                </claims-value-provider>
+                <claims-value-provider>
+                  <id>toucan-authentication-context-claims-provider</id>
+                  <authentication-context-claims-provider xmlns="https://curity.se/ns/ext-conf/authentication-context-claims-provider"/>
+                </claims-value-provider>
+                <claims-mappers>
+                  <claims-mapper>
+                    <id>default</id>
+                    <access_token>
+                      <claim>account_id</claim>
+                      <claim>email</claim>
+                      <claim>embed_context</claim>
+                      <claim>groups</claim>
+                      <claim>impersonated</claim>
+                      <claim>legacy_laputa_roles</claim>
+                      <claim>tenant_id</claim>
+                    </access_token>
+                    <id_token>
+                      <claim>account_id</claim>
+                      <claim>address</claim>
+                      <claim>birthdate</claim>
+                      <claim>email</claim>
+                      <claim>email_verified</claim>
+                      <claim>family_name</claim>
+                      <claim>gender</claim>
+                      <claim>given_name</claim>
+                      <claim>impersonated</claim>
+                      <claim>legacy_laputa_roles</claim>
+                      <claim>locale</claim>
+                      <claim>middle_name</claim>
+                      <claim>name</claim>
+                      <claim>nickname</claim>
+                      <claim>phone_number</claim>
+                      <claim>phone_number_verified</claim>
+                      <claim>picture</claim>
+                      <claim>preferred_username</claim>
+                      <claim>profile</claim>
+                      <claim>tenant_id</claim>
+                      <claim>updated_at</claim>
+                      <claim>website</claim>
+                      <claim>zoneinfo</claim>
+                    </id_token>
+                    <userinfo>
+                      <claim>account_id</claim>
+                      <claim>address</claim>
+                      <claim>birthdate</claim>
+                      <claim>email</claim>
+                      <claim>email_verified</claim>
+                      <claim>embed_context</claim>
+                      <claim>family_name</claim>
+                      <claim>gender</claim>
+                      <claim>given_name</claim>
+                      <claim>impersonated</claim>
+                      <claim>legacy_laputa_roles</claim>
+                      <claim>locale</claim>
+                      <claim>middle_name</claim>
+                      <claim>name</claim>
+                      <claim>nickname</claim>
+                      <claim>phone_number</claim>
+                      <claim>phone_number_verified</claim>
+                      <claim>picture</claim>
+                      <claim>preferred_username</claim>
+                      <claim>profile</claim>
+                      <claim>tenant_id</claim>
+                      <claim>updated_at</claim>
+                      <claim>website</claim>
+                      <claim>zoneinfo</claim>
+                    </userinfo>
+                  </claims-mapper>
+                  <default-claims-mapper>default</default-claims-mapper>
+                </claims-mappers>
+              </claims>
+              <openid-connect>
+                <expose-metadata>
+                </expose-metadata>
+              </openid-connect>
+              <client-store>
+                <config-backed>
+                  <client>
+                    <id>gateway-toucan</id>
+                    <client-name>gateway-toucan</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.gatewayToucan.secret }}</secret>
+                    <scope>email</scope>
+                    <scope>openid</scope>
+                    <scope>profile</scope>
+                    <scope>simple_user</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <introspection/>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>gateway-toucan</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                    <validate-port-on-loopback-interfaces>true</validate-port-on-loopback-interfaces>
+                  </client>
+                  <client>
+                    <id>toucan-admin-management-client</id>
+                    <client-name>toucan-admin-management-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanAdminManagementClient.secret }}</secret>
+                    <scope>accounts</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-admin-management-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                  </client>
+                  <client>
+                    <id>toucan-embed-client</id>
+                    <client-name>toucan-embed-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanEmbedClient.secret }}</secret>
+                    <scope>embed</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                      <assertion>
+                        <jwt>
+                          <trust>
+                            <issuer>{{ .Values.configuration.tenantId }}-embed</issuer>
+                            <asymmetric-signing-key>{{ .Values.configuration.tenantId }}_public_embed_verification_key</asymmetric-signing-key>
+                          </trust>
+                          <allow-reuse>true</allow-reuse>
+                        </jwt>
+                      </assertion>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-embed-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                  </client>
+                  <client>
+                    <id>toucan-impersonate-service-client</id>
+                    <client-name>toucan-impersonate-service-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanImpersonateServiceClient.secret }}</secret>
+                    <scope>email</scope>
+                    <scope>impersonate</scope>
+                    <scope>profile</scope>
+                    <scope>simple_user</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                      <assertion>
+                        <jwt>
+                          <trust>
+                            <issuer>{{ .Values.configuration.tenantId }}-toucan-impersonate-service-client</issuer>
+                            <asymmetric-signing-key>impersonate-service-verification-key</asymmetric-signing-key>
+                          </trust>
+                          <allow-reuse>true</allow-reuse>
+                        </jwt>
+                      </assertion>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-impersonate-service-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                  </client>
+                  <client>
+                    <id>toucan-impersonate-service-embed-client</id>
+                    <client-name>toucan-impersonate-service-embed-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanImpersonateServiceEmbedClient.secret }}</secret>
+                    <scope>embed</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                      <assertion>
+                        <jwt>
+                          <trust>
+                            <issuer>{{ .Values.configuration.tenantId }}-toucan-impersonate-service-embed-client</issuer>
+                            <asymmetric-signing-key>impersonate-service-verification-key</asymmetric-signing-key>
+                          </trust>
+                          <allow-reuse>true</allow-reuse>
+                        </jwt>
+                      </assertion>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-impersonate-service-embed-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                  </client>
+                  <client>
+                    <id>toucan-infra-admin-client</id>
+                    <client-name>toucan-infra-admin-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanInfraAdminClient.secret }}</secret>
+                    <scope>admin</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-infra-admin-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                  </client>
+                  <client>
+                    <id>toucan-laputa-websocket-client</id>
+                    <client-name>toucan-laputa-websocket-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanLaputaWebsocketClient.secret }}</secret>
+                    <scope>email</scope>
+                    <scope>openid</scope>
+                    <scope>profile</scope>
+                    <scope>simple_user</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <introspection/>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-laputa-websocket-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                    <validate-port-on-loopback-interfaces>true</validate-port-on-loopback-interfaces>
+                  </client>
+                  <client>
+                    <id>toucan-micro-service-client</id>
+                    <client-name>toucan-micro-service-client</client-name>
+                    <secret>{{ .Values.configuration.oidc_clients.toucanMicroServiceClient.secret }}</secret>
+                    <scope>micro-service</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <capabilities>
+                      <client-credentials/>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>toucan-micro-service-client</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                    <properties>
+                      <property>
+                        <key>at_issuer</key>
+                        <value>toucan-jwt-access-token-issuer</value>
+                      </property>
+                    </properties>
+                  </client>
+                  <client>
+                    <id>workspace-toucan</id>
+                    <client-name>workspace-toucan</client-name>
+                    <no-authentication>true</no-authentication>
+                    <redirect-uris>http://localhost:8000</redirect-uris>
+                    <redirect-uris>https://andrea.toucantoco.com</redirect-uris>
+                    <redirect-uris>https://andrea.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://antonin.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://bloodstorm.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://demo-staging.toucantoco.com</redirect-uris>
+                    <redirect-uris>https://la-cuisine.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://la-tablee.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://lucas.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://oauth.tools/callback/code</redirect-uris>
+                    <redirect-uris>https://riadh-test.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://riadh.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://toucan-v3.toucantoco.com</redirect-uris>
+                    <redirect-uris>https://v3-new-archi.toucantoco.guru</redirect-uris>
+                    <redirect-uris>https://wgorge.toucantoco.guru</redirect-uris>
+                    <proof-key>
+                      <require-proof-key>false</require-proof-key>
+                    </proof-key>
+                    <access-token-ttl>3600</access-token-ttl>
+                    <refresh-token-ttl>604800</refresh-token-ttl>
+                    <refresh-token-max-rolling-lifetime>2592000</refresh-token-max-rolling-lifetime>
+                    <scope>email</scope>
+                    <scope>openid</scope>
+                    <scope>profile</scope>
+                    <scope>simple_user</scope>
+                    <claims-mapper>default</claims-mapper>
+                    <allowed-origins>https://oauth.tools</allowed-origins>
+                    <allowed-origins>http://localhost:8000</allowed-origins>
+                    <allowed-origins>https://andrea.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://andrea.toucantoco.com</allowed-origins>
+                    <allowed-origins>https://bloodstorm.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://riadh.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://riadh-test.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://antonin.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://lucas.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://toucan-v3.toucantoco.com</allowed-origins>
+                    <allowed-origins>https://v3-new-archi.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://wgorge.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://demo-staging.toucantoco.com</allowed-origins>
+                    <allowed-origins>https://la-tablee.toucantoco.guru</allowed-origins>
+                    <allowed-origins>https://la-cuisine.toucantoco.guru</allowed-origins>
+                    <capabilities>
+                      <code>
+                      </code>
+                      <haapi>
+                        <use-legacy-dpop>false</use-legacy-dpop>
+                      </haapi>
+                    </capabilities>
+                    <use-pairwise-subject-identifiers>
+                      <sector-identifier>workspace-toucan</sector-identifier>
+                    </use-pairwise-subject-identifiers>
+                    <validate-port-on-loopback-interfaces>true</validate-port-on-loopback-interfaces>
+                    <attestation>
+                      <disable-attestation-validation>false</disable-attestation-validation>
+                      <web>
+                        <web-policy>workspace-toucan</web-policy>
+                      </web>
+                    </attestation>
+                  </client>
+                </config-backed>
+              </client-store>
+            </authorization-server>
+          </settings>
+          <endpoints>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-assisted-token</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-assisted-token</uri>
+              <endpoint-kind>oauth-assisted-token</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-authorize</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-authorize</uri>
+              <endpoint-kind>oauth-authorize</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-backchannel-authentication</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-backchannel-authentication</uri>
+              <endpoint-kind>oauth-backchannel-authentication</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-introspect</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-introspect</uri>
+              <endpoint-kind>oauth-introspect</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-oauth-anonymous</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-anonymous</uri>
+              <endpoint-kind>oauth-anonymous</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-revoke</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-revoke</uri>
+              <endpoint-kind>oauth-revoke</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-session</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-session</uri>
+              <endpoint-kind>oauth-session</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-token</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-token</uri>
+              <endpoint-kind>oauth-token</endpoint-kind>
+              <token-endpoint-procedures>
+                <flow>oauth-token-client-credentials</flow>
+                <procedure>toucan-access-token-custom-issuer</procedure>
+              </token-endpoint-procedures>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-oauth-userinfo</id>
+              <uri>/{{ .Values.configuration.tenantId }}/oauth/oauth-userinfo</uri>
+              <endpoint-kind>oauth-userinfo</endpoint-kind>
+            </endpoint>
+          </endpoints>
+          <token-issuers>
+            <custom-token-issuer>
+              <id>impersonate_jwt</id>
+              <issuer-type>opaque</issuer-type>
+              <purpose-type>access_token</purpose-type>
+              <data-sources>
+                <tokens-data-source-id>{{ .Values.configuration.tenantId }}-data-source</tokens-data-source-id>
+              </data-sources>
+            </custom-token-issuer>
+            <custom-token-issuer>
+              <id>toucan-jwt-access-token-issuer</id>
+              <issuer-type>jwt</issuer-type>
+              <purpose-type>access_token</purpose-type>
+              <data-sources>
+                <tokens-data-source-id>{{ .Values.configuration.tenantId }}-data-source</tokens-data-source-id>
+              </data-sources>
+              <jwt>
+                <algorithm>RS512</algorithm>
+                <signing-key-id>default-toucan-signing-key</signing-key-id>
+                <verification-keystore-id>default-toucan-verification-key</verification-keystore-id>
+              </jwt>
+            </custom-token-issuer>
+            <default-token-issuer>
+              <jwt-issuer-settings>
+                <algorithm>RS512</algorithm>
+                <signing-key-id>default-toucan-signing-key</signing-key-id>
+              </jwt-issuer-settings>
+              <default-data-source>{{ .Values.configuration.tenantId }}-data-source</default-data-source>
+            </default-token-issuer>
+          </token-issuers>
+        </profile>
+        <profile>
+          <id>{{ .Values.configuration.tenantId }}-user-management</id>
+          <type xmlns:um="https://curity.se/ns/conf/profile/user-management">um:user-management-service</type>
+          <settings>
+            <user-management-service xmlns="https://curity.se/ns/conf/profile/user-management">
+              <api-authentication>
+                <oauth-service>{{ .Values.configuration.tenantId }}-oauth</oauth-service>
+              </api-authentication>
+              <authorization-manager>accounts_group_authorization_manager</authorization-manager>
+              <account-manager>{{ .Values.configuration.tenantId }}-account-manager</account-manager>
+              <token-data-source>{{ .Values.configuration.tenantId }}-data-source</token-data-source>
+              <credential-management>
+                <credential-manager>{{ .Values.configuration.tenantId }}-credential-manager</credential-manager>
+              </credential-management>
+              <graphql-schema>
+                <additional-account-attribute>
+                  <name>legacyLaputaRoles</name>
+                  <type>String</type>
+                </additional-account-attribute>
+              </graphql-schema>
+            </user-management-service>
+          </settings>
+          <endpoints>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-user-management-api-admin</id>
+              <uri>/{{ .Values.configuration.tenantId }}/user-management/api/admin</uri>
+              <endpoint-kind>um-api</endpoint-kind>
+            </endpoint>
+            <endpoint>
+              <id>{{ .Values.configuration.tenantId }}-user-management-graphql-admin</id>
+              <uri>/{{ .Values.configuration.tenantId }}/user-management/graphql/admin</uri>
+              <endpoint-kind>um-graphql-api</endpoint-kind>
+            </endpoint>
+          </endpoints>
+        </profile>
+      </profiles>
+      <facilities xmlns="https://curity.se/ns/conf/base">
+        <data-sources>
+          <data-source>
+            <id>{{ .Values.configuration.tenantId }}-data-source</id>
+            <jdbc xmlns="https://curity.se/ns/ext-conf/jdbc">
+              <connection-string>data:text/plain;aes,v:S.UnkwMzlnTjlGbjNNbExQag==.dLUStcVwZ1Lnj23cY3xKSA==.QsiU7chO2bZDwl0G1NqbjnimgB3SWNlKvKWIAgiAlfUmN7dzX-QN5x8fZxwwPisKMDG4DrB_FYphEOSaPnf_9nKJmbr75u81uJCRFinyVMXanc1LvOCTdOX4O0i8UDyN.oXIKlmGeB-EDzeDq8xMwYpBZwWbMaqmJNRZtoB9D5UI=</connection-string>
+              <driver>org.postgresql.Driver</driver>
+              <enable-pool-metrics>true</enable-pool-metrics>
+              <password>data:text/plain;aes,v:S.UmhpMHRYbThGYzRNTE5JNw==.TSdV6rgFT4_Hx1K94hIrUA==.fPftLrV0rhcGs6yyzXiVdQ==.XfZvKhH6PCbb3EpT5QogES7GSM8jtOOw3skkiCUlBm0=</password>
+              <username>pg-admin</username>
+            </jdbc>
+          </data-source>
+          <data-source>
+            <id>default-caching-service</id>
+            <jdbc xmlns="https://curity.se/ns/ext-conf/jdbc">
+              <connection-string>data:text/plain;aes,v:S.YW03cHdPTm04RjlRdzZVeg==.udSbsfVxPa-AE8SVUZyADg==.Hr2chz3O8StwbqQNCdQmljvqZtqzl_1UmXQ5q5JAX-RdkGG7xo_AGGZMF71X0XJ2YTSqVCq6xy7oNRIjSWRVtrlcY-RH7o3qNbjBBaZcymE=.hQEZGPMkWE1RQQfLKtPZPiUXrECx19m8CzXjiyJXHJY=</connection-string>
+              <driver>org.postgresql.Driver</driver>
+              <enable-pool-metrics>true</enable-pool-metrics>
+              <password>data:text/plain;aes,v:S.Z2pxR0FpdVhpVzRhOElCbQ==.YZLnO0vgCFPJjnNBLg0LzQ==.eegRpeAxUKIZ6VA8M05knw==.HGUbdQrV3Xj7-jsmeGUOZHoFDj3PN6h_gwXBIooIAkE=</password>
+              <username>pg-admin</username>
+            </jdbc>
+          </data-source>
+        </data-sources>
+        <crypto>
+          <signing-keys>
+            <signing-key>
+              <id>default-toucan-signing-key</id>
+              <size>4096</size>
+              <keystore>{{ .Values.configuration.keys.private.tokenEncryptionPrivateKey | b64enc }}</keystore>
+              <type>rsa</type>
+            </signing-key>
+          </signing-keys>
+          <signature-verification-keys>
+            <signature-verification-key>
+              <id>{{ .Values.configuration.tenantId }}_public_embed_verification_key</id>
+              <size>4096</size>
+              <keystore>{{ .Values.configuration.keys.public.embedTokenRsaKey | b64enc }}</keystore>
+              <type>rsa</type>
+            </signature-verification-key>
+            <signature-verification-key>
+              <id>default-toucan-verification-key</id>
+              <size>4096</size>
+              <keystore>{{ .Values.configuration.keys.public.tokenEncryptionPublicKey | b64enc }}</keystore>
+              <type>rsa</type>
+            </signature-verification-key>
+            <signature-verification-key>
+              <id>impersonate-service-verification-key</id>
+              <size>4096</size>
+              <keystore>{{ .Values.configuration.keys.public.impersonateUserTokenRsaKey | b64enc }}</keystore>
+              <type>rsa</type>
+            </signature-verification-key>
+          </signature-verification-keys>
+        </crypto>
+        <caching-services>
+          <default-caching-service>
+            <data-source>default-caching-service</data-source>
+          </default-caching-service>
+        </caching-services>
+        <client-attestation>
+          <web-policy xmlns="https://curity.se/ns/conf/client-attestation">
+            <id>workspace-toucan</id>
+            <haapi-access-token-ttl>600</haapi-access-token-ttl>
+            <disable-origin-verification>false</disable-origin-verification>
+          </web-policy>
+        </client-attestation>
+      </facilities>
+      <processing xmlns="https://curity.se/ns/conf/base">
+        <license-key>eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJDdXJpdHkgQUIgRVUiLCJzdWIiOiJUb3VjYW4gVG9jbyIsIklkIjoiRnBUcnltOXpZVXNnY21IUmtsWURHcXYyOVBwVlplMjciLCJQcm9kdWN0IjoiSWRlbnRpdHkgU2VydmVyIiwiVmVyc2lvbiI6IjQuMyIsIkZlYXR1cmUiOiJhdXRobiwgb2F1dGgsIHVzZXItbWFuYWdlbWVudCIsIlRpZXIiOiJTdWJzY3JpcHRpb24iLCJHcmFjZSBQZXJpb2QiOiI0NSIsIklzc3VlIERhdGUiOiIyMDIzLTA5LTAxIiwiRXhwaXJhdGlvbiBEYXRlIjoiMjAyNC0xMC0zMSIsIkVkaXRpb24iOiJDdXN0b20iLCJHcm91cHMiOiIxIiwiRW52aXJvbm1lbnQiOiJOb24tcHJvZHVjdGlvbiIsIlR5cGUiOiJOb24tUHJvZHVjdGlvbiIsIkZlYXR1cmVzIjpbeyJmZWF0dXJlIjoiYWxhcm1zIiwicmVzdHJpY3Rpb25zIjpbXX0seyJmZWF0dXJlIjoiYXV0aGVudGljYXRvcnMiLCJyZXN0cmljdGlvbnMiOlsiaHRtbC1mb3JtIiwic21zIiwiZ29vZ2xlOjpiYXNpYyIsImZhY2Vib29rIiwidHdpdHRlciIsInNpZ24taW4td2l0aC1hcHBsZSIsIm9pZGMiLCJzYW1sIiwic2FtbDIiLCJkeW5hbWljIl19LHsiZmVhdHVyZSI6ImFjdGlvbnMiLCJyZXN0cmljdGlvbnMiOlsiYWxsb3ctZGVueS1jb3VudHJ5IiwiYXR0cmlidXRlLXByb21wdCIsImF1dG8tY3JlYXRlLWFjY291bnQiLCJhdXRvLWxpbmstYWNjb3VudCIsImNoYW5nZWQtY291bnRyeSIsImNvcHktYXR0cmlidXRlIiwiZGF0YS1zb3VyY2UtdHJhbnNmb3JtZXIiLCJkYXRlLXRpbWUtZGVueSIsImRlYnVnLWF0dHJpYnV0ZSIsImRlbnkiLCJpbXBvc3NpYmxlLWpvdXJuZXkiLCJsb29rdXAtYWNjb3VudCIsImxvb2t1cC1saW5rZWQtYWNjb3VudHMtdHJhbnNmb3JtZXIiLCJtdWx0aS1mYWN0b3ItY29uZGl0aW9uIiwibmV3LWNvdW50cnkiLCJvcHQtaW4tbWZhIiwicmVnZXgtdHJhbnNmb3JtZXIiLCJyZW1vdmUtYXR0cmlidXRlLXRyYW5zZm9ybWVyIiwicmVxdWVzdC1hY2tub3dsZWRnZW1lbnQiLCJyZXNldC1wYXNzd29yZCIsInJlc29sdmUtbGlua2VkLWFjY291bnQtdHJhbnNmb3JtZXIiLCJyZXN0YXJ0Iiwic2NyaXB0LXRyYW5zZm9ybWVyIiwic2VsZWN0b3IiLCJzZW5kLWVtYWlsIiwic2VxdWVuY2UiLCJzZXQtYXR0cmlidXRlIiwic3dpdGNoIiwidGltZS1kZW55IiwidXBkYXRlLWFjY291bnQiLCJ6b25lLXRyYW5zZmVyIl19LHsiZmVhdHVyZSI6ImNsYWltcy1wcm92aWRlcnMiLCJyZXN0cmljdGlvbnMiOlsiYWNjb3VudC1tYW5hZ2VyLWNsYWltcy1wcm92aWRlciIsImF1dGhlbnRpY2F0aW9uLWNvbnRleHQtY2xhaW1zLXByb3ZpZGVyIiwiYXV0aGVudGljYXRpb24tc3ViamVjdC1jbGFpbXMtcHJvdmlkZXIiLCJjbGllbnQtY2VydGlmaWNhdGUtY2xhaW1zLXByb3ZpZGVyIiwiY29uc2VudC1jbGFpbXMtcHJvdmlkZXIiLCJkYXRhLXNvdXJjZS1jbGFpbXMtcHJvdmlkZXIiLCJzY3JpcHQtY2xhaW1zLXByb3ZpZGVyIiwic3lzdGVtLWluZm9ybWF0aW9uLWNsYWltcy1wcm92aWRlciJdfSx7ImZlYXR1cmUiOiJldmVudC1saXN0ZW5lcnMiLCJyZXN0cmljdGlvbnMiOltdfSx7ImZlYXR1cmUiOiJjbHVzdGVyIiwicmVzdHJpY3Rpb25zIjpbXX0seyJmZWF0dXJlIjoiZGF0YS1zb3VyY2VzIiwicmVzdHJpY3Rpb25zIjpbImpkYmM6OiRTQU1FX1RZUEUiXX0seyJmZWF0dXJlIjoiaGFhcGkiLCJyZXN0cmljdGlvbnMiOltdfSx7ImZlYXR1cmUiOiJtZXRyaWNzIiwicmVzdHJpY3Rpb25zIjpbXX0seyJmZWF0dXJlIjoiZGF0YWJhc2UtY2xpZW50cyIsInJlc3RyaWN0aW9ucyI6W119LHsiZmVhdHVyZSI6ImdyYXBocWwiLCJyZXN0cmljdGlvbnMiOlsiYWNjb3VudHMiLCJkY3IiXX0seyJmZWF0dXJlIjoicHJvZmlsZXMiLCJyZXN0cmljdGlvbnMiOlsiYXV0aDphdXRoZW50aWNhdGlvbi1zZXJ2aWNlIiwiYXM6b2F1dGgtc2VydmljZSIsInVtOnVzZXItbWFuYWdlbWVudC1zZXJ2aWNlIl19XSwiaWF0IjoxNjkzNTI2NDAwLCJuYmYiOjE2OTM1MjY0MDAsImV4cCI6MTczMDMzMjgwMH0.bwDSE2vX7LLLJx6gs51lK7b_WdbPErdPwy-90XA8eqMtcSYa8o-Bl_GLNY2TL-6DuBxFacRtyocUSFZN_pJ2OakSg3IaYcRwjLbxOuISnHWzk9GBenVpHit2Ewt3sbWMQeEgIx8DffCwjkgeAAl05-DoNKT--6QseHZm4S7ChEd1FDs8tq4aYASCndVx4yzTuIeTn8G1LDJIVi6rEN8C3D-TyQk4l89tI2Z54j7cq0cfgo7J-2pxW5r2ah3_-w_AHrNegf-xP4efY5sgddm7HlRlphS7VjoXs6EgOexziDEr94wvF0-OESR8TAt-XRcncvez5Ou0Iwvk_kvQLJL1hQ</license-key>
+        <procedures>
+          <token-procedure>
+            <id>toucan-access-token-custom-issuer</id>
+            <flow>oauth-token-client-credentials</flow>
+            <script>LyoqCiAqIEBwYXJhbSB7c2UuY3VyaXR5LmlkZW50aXR5c2VydmVyLnByb2NlZHVyZXMuY29udGV4dC5DbGllbnRDcmVkZW50aWFsc1Rva2VuUHJvY2VkdXJlQ29udGV4dH0gY29udGV4dAogKi8KZnVuY3Rpb24gaXNzdWVBY2Nlc3NUb2tlbihjb250ZXh0LCBhY2Nlc3NUb2tlbkRhdGEsIGlzc3VlZERlbGVnYXRpb24pIHsKICAgIHZhciBpc3N1ZXJUeXBlID0gY29udGV4dC5jbGllbnQucHJvcGVydGllc1snYXRfaXNzdWVyJ107CiAgICB2YXIgaXNzdWVkVG9rZW47CgogICAgaWYgKGlzc3VlclR5cGUgPT09IHVuZGVmaW5lZCB8fCBpc3N1ZXJUeXBlID09PSBudWxsIHx8IGlzc3VlclR5cGUgPT09ICdkZWZhdWx0JykgewogICAgICAgIGlzc3VlZFRva2VuID0gY29udGV4dC5hY2Nlc3NUb2tlbklzc3Vlci5pc3N1ZShhY2Nlc3NUb2tlbkRhdGEsIGlzc3VlZERlbGVnYXRpb24pOwogICAgfQogICAgZWxzZSB7CiAgICAgICAgaXNzdWVkVG9rZW4gPSBjb250ZXh0LmdldEFjY2Vzc1Rva2VuSXNzdWVyKGlzc3VlclR5cGUpLmlzc3VlKGFjY2Vzc1Rva2VuRGF0YSwgaXNzdWVkRGVsZWdhdGlvbik7CiAgICB9CgogICAgcmV0dXJuIGlzc3VlZFRva2VuOwp9CgpmdW5jdGlvbiByZXN1bHQoY29udGV4dCkgewogICAgdmFyIGRlbGVnYXRpb25EYXRhID0gY29udGV4dC5nZXREZWZhdWx0RGVsZWdhdGlvbkRhdGEoKTsKICAgIHZhciBpc3N1ZWREZWxlZ2F0aW9uID0gY29udGV4dC5kZWxlZ2F0aW9uSXNzdWVyLmlzc3VlKGRlbGVnYXRpb25EYXRhKTsKCiAgICB2YXIgYWNjZXNzVG9rZW5EYXRhID0gY29udGV4dC5nZXREZWZhdWx0QWNjZXNzVG9rZW5EYXRhKCk7CiAgICB2YXIgaXNzdWVkQWNjZXNzVG9rZW4gPSBpc3N1ZUFjY2Vzc1Rva2VuKGNvbnRleHQsIGFjY2Vzc1Rva2VuRGF0YSwgaXNzdWVkRGVsZWdhdGlvbikKCiAgICB2YXIgcmVmcmVzaFRva2VuRGF0YSA9IGNvbnRleHQuZ2V0RGVmYXVsdFJlZnJlc2hUb2tlbkRhdGEoKTsKICAgIHZhciBpc3N1ZWRSZWZyZXNoVG9rZW4gPSBjb250ZXh0LnJlZnJlc2hUb2tlbklzc3Vlci5pc3N1ZShyZWZyZXNoVG9rZW5EYXRhLCBpc3N1ZWREZWxlZ2F0aW9uKTsKCiAgICB2YXIgcmVzcG9uc2VEYXRhID0gewogICAgICAgIGFjY2Vzc190b2tlbjogaXNzdWVkQWNjZXNzVG9rZW4sCiAgICAgICAgc2NvcGU6IGFjY2Vzc1Rva2VuRGF0YS5zY29wZSwKICAgICAgICByZWZyZXNoX3Rva2VuOiBpc3N1ZWRSZWZyZXNoVG9rZW4sCiAgICAgICAgdG9rZW5fdHlwZTogJ2JlYXJlcicsCiAgICAgICAgZXhwaXJlc19pbjogc2Vjb25kc1VudGlsKGFjY2Vzc1Rva2VuRGF0YS5leHApCiAgICB9OwoKICAgIHZhciBpZFRva2VuRGF0YSA9IGNvbnRleHQuZ2V0RGVmYXVsdElkVG9rZW5EYXRhKCk7CiAgICBpZiAoaWRUb2tlbkRhdGEpIHsKICAgICAgICB2YXIgaWRUb2tlbklzc3VlciA9IGNvbnRleHQuaWRUb2tlbklzc3VlcjsKICAgICAgICBpZFRva2VuRGF0YS5hdF9oYXNoID0gaWRUb2tlbklzc3Vlci5hdEhhc2goaXNzdWVkQWNjZXNzVG9rZW4pOwoKICAgICAgICByZXNwb25zZURhdGEuaWRfdG9rZW4gPSBpZFRva2VuSXNzdWVyLmlzc3VlKGlkVG9rZW5EYXRhLCBpc3N1ZWREZWxlZ2F0aW9uKTsKICAgIH0KCiAgICByZXR1cm4gcmVzcG9uc2VEYXRhOwp9</script>
+          </token-procedure>
+          <transformation-procedure>
+            <id>Set_activated</id>
+            <script>LyoqCiAqIFRoaXMgaXMgYW4gZXhhbXBsZSBwcm9jZWR1cmUgdGhhdCBwZXJmb3JtcyBubyB0cmFuc2Zvcm1hdGlvbgogKiBAcGFyYW0ge3NlLmN1cml0eS5pZGVudGl0eXNlcnZlci5wcm9jZWR1cmVzLmNvbnRleHQuVHJhbnNmb3JtYXRpb25Qcm9jZWR1cmVDb250ZXh0fSBjb250ZXh0CiAqIEByZXR1cm5zIHsqfQogKi8KZnVuY3Rpb24gcmVzdWx0KGNvbnRleHQpIHsKICAvLyB0aGUgJ2NvbnRleHQuYXR0cmlidXRlTWFwJyBjb250ZW50IGNvbWVzIGZyb20gdGhlIGNvbmZpZ3VyZWQgJ2F0dHJpYnV0ZXMtbG9jYXRpb24nIChzdWJqZWN0LWF0dHJpYnV0ZXMsIGNvbnRleHQtYXR0cmlidXRlcywgb3IgYWN0aW9uLWF0dHJpYnV0ZXMpCiAgdmFyIGF0dHJpYnV0ZXMgPSBjb250ZXh0LmF0dHJpYnV0ZU1hcDsKCiAgLyoKICAgICAgRXhhbXBsZTogVG8gYWRkIEBleGFtcGxlLmNvbSB0byBlYWNoIHVzZXJuYW1lLCBhc3N1bWluZyAnYXR0cmlidXRlcy1sb2NhdGlvbicgaXMgJ3N1YmplY3QtYXR0cmlidXRlcycsIGRvOgogICAgICBhdHRyaWJ1dGVzLnN1YmplY3QgPSBhdHRyaWJ1dGVzLnN1YmplY3QgKyAnQGV4YW1wbGUuY29tJzsKICAgICAqLwoKICAvKgogICAgICBFeGFtcGxlOiBUbyBhZGQgZXh0cmEgYXR0cmlidXRlcywgbGlrZSBkZXZpY2UgaWQnczoKICAgICAgYXR0cmlidXRlcy5kZXZpY2VJZHMgPSBbMSwgMiwgM107CiAgICAgKi8KCiAgLyoKICAgICAgRXhhbXBsZTogSWYgdGhpcyB0cmFuc2Zvcm1hdGlvbiBwcm9jZWR1cmUgaXMgcnVubmluZyBvbiBhbiBhdXRoZW50aWNhdGlvbiBhY3Rpb24gCiAgICAgIHRoZW4gaXQgaXMgYWxzbyBwb3NzaWJsZSB0byBkaXJlY3RseSBhY2Nlc3MgZWFjaCBvbmUgb2YgdGhlIHRocmVlIGF0dHJpYnV0ZSBsb2NhdGlvbnMgYXZhaWxhYmxlIHRvIGF1dGhlbnRpY2F0aW9uIGFjdGlvbnMKICAgICAgaWYgKGNvbnRleHQuYWN0aW9uQXR0cmlidXRlTWFwKSB7CiAgICAgICAgICB2YXIgc3ViamVjdCA9IGNvbnRleHQuc3ViamVjdEF0dHJpYnV0ZU1hcC5zdWJqZWN0CiAgICAgICAgICBsb2dnZXIuaW5mbyhjb250ZXh0LmNvbnRleHRBdHRyaWJ1dGVNYXAuYWNyKQogICAgICAgICAgbG9nZ2VyLmluZm8oY29udGV4dC5hY3Rpb25BdHRyaWJ1dGVNYXAuc29tZUFjdGlvbkF0dHJpYnV0ZSkKICAgICAgfQogICAgICovCgogIC8vIHRoZSByZXR1cm5lZCBhdHRyaWJ1dGVzIHdpbGwgYmUgYXNzaWduZWQgdG8gdGhlIGNvbmZpZ3VyZWQgJ2F0dHJpYnV0ZXMtbG9jYXRpb24nCiAgcmV0dXJuIGF0dHJpYnV0ZXM7Cn0K</script>
+          </transformation-procedure>
+        </procedures>
+        <authorization-managers>
+          <authorization-manager>
+            <id>accounts_group_authorization_manager</id>
+            <groups xmlns="https://curity.se/ns/conf/authorization-manager/group">
+              <scope>accounts</scope>
+              <group>
+                <name>admin</name>
+                <allows>
+                  <create/>
+                  <read/>
+                  <update/>
+                  <delete/>
+                </allows>
+              </group>
+            </groups>
+          </authorization-manager>
+        </authorization-managers>
+        <account-managers>
+          <account-manager>
+            <id>{{ .Values.configuration.tenantId }}-account-manager</id>
+            <username-is-email>false</username-is-email>
+            <account-data-source>{{ .Values.configuration.tenantId }}-data-source</account-data-source>
+            <device-data-source>{{ .Values.configuration.tenantId }}-data-source</device-data-source>
+          </account-manager>
+        </account-managers>
+        <credential-managers>
+          <credential-manager>
+            <id>{{ .Values.configuration.tenantId }}-credential-manager</id>
+            <BCrypt>
+              <cost>10</cost>
+            </BCrypt>
+            <data-source-backed>
+              <data-source-id>{{ .Values.configuration.tenantId }}-data-source</data-source-id>
+            </data-source-backed>
+            <min-time-on-fail>1500</min-time-on-fail>
+          </credential-manager>
+        </credential-managers>
+      </processing>
+      <nacm xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-acm">
+        <write-default>permit</write-default>
+        <groups>
+          <group>
+            <name>admin</name>
+            <user-name>admin</user-name>
+          </group>
+        </groups>
+        <rule-list>
+          <name>admin</name>
+          <group>admin</group>
+          <rule>
+            <name>any-access</name>
+            <action>permit</action>
+          </rule>
+        </rule-list>
+        <rule-list>
+          <name>any-group</name>
+          <group>*</group>
+          <rule>
+            <name>tailf-aaa-authentication</name>
+            <module-name>tailf-aaa</module-name>
+            <path>/aaa/authentication/users/user[name='$USER']</path>
+            <access-operations>read update</access-operations>
+            <action>permit</action>
+          </rule>
+          <rule>
+            <name>tailf-aaa-user</name>
+            <module-name>tailf-aaa</module-name>
+            <path>/user[name='$USER']</path>
+            <access-operations>create read update delete</access-operations>
+            <action>permit</action>
+          </rule>
+          <rule>
+            <name>tailf-webui-user</name>
+            <module-name>tailf-webui</module-name>
+            <path>/webui/data-stores/user-profile[username='$USER']</path>
+            <access-operations>create read update delete</access-operations>
+            <action>permit</action>
+          </rule>
+        </rule-list>
+      </nacm>
+      <aaa xmlns="http://tail-f.com/ns/aaa/1.1">
+        <authentication>
+          <users>
+            <user>
+              <name>admin</name>
+              <uid>0</uid>
+              <gid>0</gid>
+              <password>{{ .Values.configuration.admin_password }}</password>
+              <ssh_keydir>/opt/idsvr/home/admin/.ssh</ssh_keydir>
+              <homedir>/opt/idsvr/home/admin</homedir>
+            </user>
+          </users>
+        </authentication>
+        <ios>
+          <level>
+            <nr>0</nr>
+            <prompt>\h> </prompt>
+          </level>
+          <level>
+            <nr>15</nr>
+            <prompt>\h# </prompt>
+          </level>
+          <privilege>
+            <mode>exec</mode>
+            <level>
+              <nr>0</nr>
+              <command>
+                <name>action</name>
+              </command>
+              <command>
+                <name>autowizard</name>
+              </command>
+              <command>
+                <name>enable</name>
+              </command>
+              <command>
+                <name>exit</name>
+              </command>
+              <command>
+                <name>help</name>
+              </command>
+              <command>
+                <name>startup</name>
+              </command>
+            </level>
+            <level>
+              <nr>15</nr>
+              <command>
+                <name>configure</name>
+              </command>
+            </level>
+          </privilege>
+        </ios>
+      </aaa>
+    </config>
