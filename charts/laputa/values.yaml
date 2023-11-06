@@ -12,8 +12,7 @@ image:
   # tag: latest
   tag: ""
 
-imagePullSecrets:
-  - name: quay
+imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
@@ -344,7 +343,7 @@ configuration:
     TOUCAN_QUERY_CACHE:              'enable'
     TOUCAN_QUERY_CACHE_MIN_TIME:     '1000 ms'
     # Gotenberg screenshot service
-    TOUCAN_GOTENBERG_FLAG:           'enable'
+    TOUCAN_GOTENBERG_FLAG:           'experimental'
     # Throttle rate
     TOUCAN_THROTTLE_RATE_STATUS:     'enable'
     TOUCAN_THROTTLE_RATE_LIMIT:      '5/minute'
