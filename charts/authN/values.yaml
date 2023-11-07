@@ -94,7 +94,7 @@ configuration:
       tokenEncryptionPublicKey: "CHANGE_ME"
     private:
       tokenEncryptionPrivateKey: "CHANGE_ME"
-  oidc_clients:
+  oidcClients:
     gatewayToucan:
       secret: "gateway_toucan"
     toucanAdminManagementClient:
@@ -111,7 +111,14 @@ configuration:
       secret: "toucan_laputa_websocket_client"
     toucanMicroServiceClient:
       secret: "toucan_micro_service_client"
+  dataSource:
+      connection-string: jdbc:postgresql://postgres:5432/authn-service
+      driver: org.postgresql.Driver
+      username: user
+      password: password
+      enable-pool-metrics: true
 
+# Do not override this unless you know what you're doing
 # Values can be found here (https://github.com/curityio/idsvr-helm/tree/master/idsvr)
 idsvr:
   revisionHistoryLimit: 2
@@ -128,3 +135,22 @@ idsvr:
               - key: config.xml
                 path: config.xml
     adminUiHttp: true
+
+# https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
+postgresql:
+  # disable if you want to use an existing db.
+  enabled: true
+  postgresqlPort: 5432
+  auth:
+    enablePostgresUser: false
+    postgresPassword: change_me_admin
+    database: authn_service
+    username: authn_service
+    password: authn_service_change_me
+  primary:
+    initdb:
+      scriptsConfigMap: toucan-authn-postgres-migration
+  resources: {}
+  persistence: {}
+  replication: {}
+  volumePermissions: {}

@@ -2,5 +2,8 @@ dependencies:
 - name: idsvr
   repository: https://curityio.github.io/idsvr-helm
   version: 0.12.15
-digest: sha256:60a692f2f606025b24e0e0e76f9ded02e812c4c1e78a66f8f716a1c44c5220f5
-generated: "2023-11-06T09:49:03.388634+01:00"
+- name: postgresql
+  repository: https://charts.bitnami.com/bitnami
+  version: 11.9.13
+digest: sha256:9805504a1b6fcd62c80c767c813aa447a9de92d833135a707e539bc48dbeda4d
+generated: "2023-11-07T10:39:54.935098+01:00"

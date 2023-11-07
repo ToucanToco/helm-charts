@@ -525,7 +525,7 @@ data:
                   <client>
                     <id>gateway-toucan</id>
                     <client-name>gateway-toucan</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.gatewayToucan.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.gatewayToucan.secret }}</secret>
                     <scope>email</scope>
                     <scope>openid</scope>
                     <scope>profile</scope>
@@ -542,7 +542,7 @@ data:
                   <client>
                     <id>toucan-admin-management-client</id>
                     <client-name>toucan-admin-management-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanAdminManagementClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanAdminManagementClient.secret }}</secret>
                     <scope>accounts</scope>
                     <claims-mapper>default</claims-mapper>
                     <capabilities>
@@ -555,7 +555,7 @@ data:
                   <client>
                     <id>toucan-embed-client</id>
                     <client-name>toucan-embed-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanEmbedClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanEmbedClient.secret }}</secret>
                     <scope>embed</scope>
                     <claims-mapper>default</claims-mapper>
                     <capabilities>
@@ -577,7 +577,7 @@ data:
                   <client>
                     <id>toucan-impersonate-service-client</id>
                     <client-name>toucan-impersonate-service-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanImpersonateServiceClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanImpersonateServiceClient.secret }}</secret>
                     <scope>email</scope>
                     <scope>impersonate</scope>
                     <scope>profile</scope>
@@ -602,7 +602,7 @@ data:
                   <client>
                     <id>toucan-impersonate-service-embed-client</id>
                     <client-name>toucan-impersonate-service-embed-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanImpersonateServiceEmbedClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanImpersonateServiceEmbedClient.secret }}</secret>
                     <scope>embed</scope>
                     <claims-mapper>default</claims-mapper>
                     <capabilities>
@@ -624,7 +624,7 @@ data:
                   <client>
                     <id>toucan-infra-admin-client</id>
                     <client-name>toucan-infra-admin-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanInfraAdminClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanInfraAdminClient.secret }}</secret>
                     <scope>admin</scope>
                     <claims-mapper>default</claims-mapper>
                     <capabilities>
@@ -637,7 +637,7 @@ data:
                   <client>
                     <id>toucan-laputa-websocket-client</id>
                     <client-name>toucan-laputa-websocket-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanLaputaWebsocketClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanLaputaWebsocketClient.secret }}</secret>
                     <scope>email</scope>
                     <scope>openid</scope>
                     <scope>profile</scope>
@@ -654,7 +654,7 @@ data:
                   <client>
                     <id>toucan-micro-service-client</id>
                     <client-name>toucan-micro-service-client</client-name>
-                    <secret>{{ .Values.configuration.oidc_clients.toucanMicroServiceClient.secret }}</secret>
+                    <secret>{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}</secret>
                     <scope>micro-service</scope>
                     <claims-mapper>default</claims-mapper>
                     <capabilities>
@@ -860,21 +860,19 @@ data:
           <data-source>
             <id>{{ .Values.configuration.tenantId }}-data-source</id>
             <jdbc xmlns="https://curity.se/ns/ext-conf/jdbc">
+              {{- if .Values.postgresql.enabled }}
+              <connection-string>{{ printf "jdbc:postgresql://%s-postgresql.%s.svc.cluster.local:%d/%s" .Release.Name .Release.Namespace  (.Values.postgresql.postgresqlPort | int) .Values.postgresql.auth.database }}</connection-string>
+              <driver>org.postgresql.Driver</driver>
+              <enable-pool-metrics>true</enable-pool-metrics>
+              <password>{{ .Values.postgresql.auth.password }}</password>
+              <username>{{ .Values.postgresql.auth.username }}</username>
+              {{- else }}
               <connection-string>data:text/plain;aes,v:S.UnkwMzlnTjlGbjNNbExQag==.dLUStcVwZ1Lnj23cY3xKSA==.QsiU7chO2bZDwl0G1NqbjnimgB3SWNlKvKWIAgiAlfUmN7dzX-QN5x8fZxwwPisKMDG4DrB_FYphEOSaPnf_9nKJmbr75u81uJCRFinyVMXanc1LvOCTdOX4O0i8UDyN.oXIKlmGeB-EDzeDq8xMwYpBZwWbMaqmJNRZtoB9D5UI=</connection-string>
               <driver>org.postgresql.Driver</driver>
               <enable-pool-metrics>true</enable-pool-metrics>
               <password>data:text/plain;aes,v:S.UmhpMHRYbThGYzRNTE5JNw==.TSdV6rgFT4_Hx1K94hIrUA==.fPftLrV0rhcGs6yyzXiVdQ==.XfZvKhH6PCbb3EpT5QogES7GSM8jtOOw3skkiCUlBm0=</password>
               <username>pg-admin</username>
-            </jdbc>
-          </data-source>
-          <data-source>
-            <id>default-caching-service</id>
-            <jdbc xmlns="https://curity.se/ns/ext-conf/jdbc">
-              <connection-string>data:text/plain;aes,v:S.YW03cHdPTm04RjlRdzZVeg==.udSbsfVxPa-AE8SVUZyADg==.Hr2chz3O8StwbqQNCdQmljvqZtqzl_1UmXQ5q5JAX-RdkGG7xo_AGGZMF71X0XJ2YTSqVCq6xy7oNRIjSWRVtrlcY-RH7o3qNbjBBaZcymE=.hQEZGPMkWE1RQQfLKtPZPiUXrECx19m8CzXjiyJXHJY=</connection-string>
-              <driver>org.postgresql.Driver</driver>
-              <enable-pool-metrics>true</enable-pool-metrics>
-              <password>data:text/plain;aes,v:S.Z2pxR0FpdVhpVzRhOElCbQ==.YZLnO0vgCFPJjnNBLg0LzQ==.eegRpeAxUKIZ6VA8M05knw==.HGUbdQrV3Xj7-jsmeGUOZHoFDj3PN6h_gwXBIooIAkE=</password>
-              <username>pg-admin</username>
+              {{- end }}
             </jdbc>
           </data-source>
         </data-sources>
@@ -910,7 +908,7 @@ data:
         </crypto>
         <caching-services>
           <default-caching-service>
-            <data-source>default-caching-service</data-source>
+            <data-source>{{ .Values.configuration.tenantId }}-data-source</data-source>
           </default-caching-service>
         </caching-services>
         <client-attestation>
