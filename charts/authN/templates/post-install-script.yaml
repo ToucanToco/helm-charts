@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: toucan-authn-post-install-script
+data:
+  init.sh: |- 
+    #!/bin/sh
+
+    create_config_oauth_server_provider() {
+      local tenant_uuid="$1"
+      local client_id="$2"
+      local client_secret="$3"
+
+
+      vault write toucan_oauthapp_tenant/servers/${tenant_uuid}/${tenant_uuid}-oauth/${client_id} \
+        provider=oidc \
+        provider_options=issuer_url=https://auth.toucan.local/${tenant_uuid}/oauth/oauth-anonymous \
+        client_id=${client_id} \
+        client_secret=${client_secret}
+    }
+
+    create_self_oauth_client_credentials() {
+      local tenant_uuid="$1"
+      local client_id="$2"
+      local scopes="$3"
+
+      vault write toucan_oauthapp_tenant/self/${tenant_uuid}/${client_id} \
+        server=${tenant_uuid}/${tenant_uuid}-oauth/${client_id} \
+        scopes=${scopes}
+    }
+
+    create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "{{ .Values.configuration.oidcClients.toucanAdminManagementClient.secret }}"
+    create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "accounts"
+
+    create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}"
+    create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "micro-service"

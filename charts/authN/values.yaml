@@ -117,6 +117,10 @@ configuration:
       username: user
       password: password
       enable-pool-metrics: true
+  vault_post_install_environment:
+    VAULT_ADDR: http://authn-vault:8200
+    VAULT_SKIP_VERIFY: "true"
+    VAULT_TOKEN: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
 
 # Do not override this unless you know what you're doing
 # Values can be found here (https://github.com/curityio/idsvr-helm/tree/master/idsvr)
@@ -154,3 +158,60 @@ postgresql:
   persistence: {}
   replication: {}
   volumePermissions: {}
+
+# This vault will boot with dev mode enabled
+# For production use, we recommend to use a vault that supports HA
+# with dev mode disabled.
+# Configuration can be found here: https://github.com/hashicorp/vault-helm/blob/main/values.yaml
+vault:
+  enabled: true
+  injector:
+    enabled: false
+  ui:
+    enabled: true
+  server:
+    dataStorage:
+      enabled: true
+      size: 1Gi
+      mountPath: "/vault/data"
+      storageClass: null
+      accessMode: ReadWriteOnce
+      annotations: {}
+    auditStorage:
+      enabled: false
+    standalone:
+      enabled: true
+    ha:
+      enabled: false
+    # -- This is for dev mode only, production should use a vault with HA and a configured seal method.
+    dev:
+      enabled: true
+      devRootToken: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
+    volumes:
+      - name: plugins
+        emptyDir: {}
+    volumeMounts:
+      - mountPath: /usr/local/libexec/vault
+        name: plugins
+        readOnly: true
+    extraArgs: -dev-plugin-dir=/usr/local/libexec/vault
+    extraInitContainers:
+      # Install the oauthapp plugin
+      - name: oauthapp
+        image: "alpine"
+        command: [sh, -c]
+        args:
+          - cd /tmp &&
+            wget https://github.com/puppetlabs/vault-plugin-secrets-oauthapp/releases/download/v3.1.1/vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz -O vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz &&
+            tar -xf vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz &&
+            mv vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64 /usr/local/libexec/vault/oauthapp &&
+            chmod +x /usr/local/libexec/vault/oauthapp
+        volumeMounts:
+          - name: plugins
+            mountPath: /usr/local/libexec/vault
+    postStart:
+      - /bin/sh
+      - -ec
+      - >
+        sleep 5 &&
+        vault secrets enable -path=toucan_oauthapp_tenant oauthapp
