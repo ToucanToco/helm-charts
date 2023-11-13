@@ -674,21 +674,9 @@ data:
                     <id>workspace-toucan</id>
                     <client-name>workspace-toucan</client-name>
                     <no-authentication>true</no-authentication>
-                    <redirect-uris>http://localhost:8000</redirect-uris>
-                    <redirect-uris>https://andrea.toucantoco.com</redirect-uris>
-                    <redirect-uris>https://andrea.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://antonin.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://bloodstorm.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://demo-staging.toucantoco.com</redirect-uris>
-                    <redirect-uris>https://la-cuisine.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://la-tablee.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://lucas.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://oauth.tools/callback/code</redirect-uris>
-                    <redirect-uris>https://riadh-test.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://riadh.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://toucan-v3.toucantoco.com</redirect-uris>
-                    <redirect-uris>https://v3-new-archi.toucantoco.guru</redirect-uris>
-                    <redirect-uris>https://wgorge.toucantoco.guru</redirect-uris>
+                    {{- range .Values.configuration.allowedOrigin }}
+                    <redirect-uris>{{ . }}</redirect-uris>
+                    {{- end }}
                     <proof-key>
                       <require-proof-key>false</require-proof-key>
                     </proof-key>
@@ -700,21 +688,9 @@ data:
                     <scope>profile</scope>
                     <scope>simple_user</scope>
                     <claims-mapper>default</claims-mapper>
-                    <allowed-origins>https://oauth.tools</allowed-origins>
-                    <allowed-origins>http://localhost:8000</allowed-origins>
-                    <allowed-origins>https://andrea.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://andrea.toucantoco.com</allowed-origins>
-                    <allowed-origins>https://bloodstorm.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://riadh.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://riadh-test.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://antonin.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://lucas.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://toucan-v3.toucantoco.com</allowed-origins>
-                    <allowed-origins>https://v3-new-archi.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://wgorge.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://demo-staging.toucantoco.com</allowed-origins>
-                    <allowed-origins>https://la-tablee.toucantoco.guru</allowed-origins>
-                    <allowed-origins>https://la-cuisine.toucantoco.guru</allowed-origins>
+                    {{- range .Values.configuration.allowedOrigin }}
+                    <allowed-origins>{{ . }}</allowed-origins>
+                    {{- end }}
                     <capabilities>
                       <code>
                       </code>

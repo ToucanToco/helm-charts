@@ -27,8 +27,3 @@ spec:
       - name: post-install-job
         image: "hashicorp/vault:1.12.1"
         command: ["/bin/sleep","{{ default "600" .Values.sleepyTime }}"]
-      env:
-        - name: VAULT_ADDR
-          value: "{{ ternary .Values.vaultAddr .Release.Name }}"
-        - name: VAULT_SKIP_VERIFY
-          value: "{{ .Values.vaultSkipVerify }}"

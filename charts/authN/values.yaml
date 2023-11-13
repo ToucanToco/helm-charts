@@ -117,10 +117,12 @@ configuration:
       username: user
       password: password
       enable-pool-metrics: true
-  vault_post_install_environment:
+  vaultPostInstallEnvironment:
     VAULT_ADDR: http://authn-vault:8200
     VAULT_SKIP_VERIFY: "true"
     VAULT_TOKEN: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
+  allowedOrigins:
+    - "http://localhost:8000"
 
 # Do not override this unless you know what you're doing
 # Values can be found here (https://github.com/curityio/idsvr-helm/tree/master/idsvr)
