@@ -8,6 +8,7 @@ data:
       <environments xmlns="https://curity.se/ns/conf/base">
         <environment>
           <name>toucan-authN-service</name>
+          <base-url>http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host }}</base-url>
           <admin-service>
             <http>
               <listening-host>0.0.0.0</listening-host>
@@ -37,22 +38,9 @@ data:
             <zones>
               <default-zone>
                 <symmetric-key>{{ .Values.configuration.encryptionKey }}</symmetric-key>
-                <allowed-origins-for-cors>http://localhost:8000</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://*.toucantoco.com</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://*.toucantoco.guru</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://alice.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://david.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://david2.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://demo-staging-public.toucantoco.com/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://demo-staging.toucantoco.com/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://la-cuisine.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://la-tablee.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://riadh-test.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://riadh.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://tifftouff.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://toucan-v3.toucantoco.com/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://v3-new-archi.toucantoco.guru/</allowed-origins-for-cors>
-                <allowed-origins-for-cors>https://wgorge.toucantoco.guru/</allowed-origins-for-cors>
+                {{- range .Values.configuration.allowedOrigins }}
+                <allowed-origins-for-cors>{{ . }}</allowed-origins-for-cors>
+                {{- end }}
               </default-zone>
             </zones>
             <service-role>
@@ -83,6 +71,12 @@ data:
           <type xmlns:auth="https://curity.se/ns/conf/profile/authentication">auth:authentication-service</type>
           <settings>
             <authentication-service xmlns="https://curity.se/ns/conf/profile/authentication">
+              <base-url>
+                <default-base-url>http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host }}</default-base-url>
+                {{- range .Values.idsvr.curity.runtime.additionalBaseUrl }}
+                <additional-base-url>{{ . }}</additional-base-url>
+                {{- end }}
+              </base-url>
               <authentication-actions>
                 <authentication-action>
                   <id>default_copy_attribute</id>
@@ -674,7 +668,7 @@ data:
                     <id>workspace-toucan</id>
                     <client-name>workspace-toucan</client-name>
                     <no-authentication>true</no-authentication>
-                    {{- range .Values.configuration.allowedOrigin }}
+                    {{- range .Values.configuration.allowedOrigins }}
                     <redirect-uris>{{ . }}</redirect-uris>
                     {{- end }}
                     <proof-key>
@@ -688,7 +682,7 @@ data:
                     <scope>profile</scope>
                     <scope>simple_user</scope>
                     <claims-mapper>default</claims-mapper>
-                    {{- range .Values.configuration.allowedOrigin }}
+                    {{- range .Values.configuration.allowedOrigins }}
                     <allowed-origins>{{ . }}</allowed-origins>
                     {{- end }}
                     <capabilities>

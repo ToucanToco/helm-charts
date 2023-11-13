@@ -117,10 +117,12 @@ configuration:
       username: user
       password: password
       enable-pool-metrics: true
-  vaultPostInstallEnvironment:
-    VAULT_ADDR: http://authn-vault:8200
-    VAULT_SKIP_VERIFY: "true"
-    VAULT_TOKEN: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
+  vaultPostInstallSleepTime: 120
+  vaultPostInstallEnvironment: {}
+    # Omit if using the default vault server
+    # vaultAddr: http://authn-vault:8200
+    # vaultSkipVerify: "true"
+    # vaultToken: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
   allowedOrigins:
     - "http://localhost:8000"
 
@@ -132,6 +134,13 @@ idsvr:
     admin:
       logging:
         level: DEBUG
+    runtime:
+      service:
+        type: ClusterIP
+        port: 8443
+      logging:
+        level: DEBUG
+      additionalBaseUrl: []
     config:
       uiEnabled: true
       configuration: 
@@ -141,6 +150,15 @@ idsvr:
               - key: config.xml
                 path: config.xml
     adminUiHttp: true
+  ingress:
+    admin:
+      enabled: true
+    runtime:
+      enabled: true
+      host: auth-dev-riadh.toucantoco.guru
+      path: /
+      annotations:
+        kubernetes.io/ingress.class: nginx
 
 # https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
 postgresql:

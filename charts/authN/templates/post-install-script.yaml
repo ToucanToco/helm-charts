@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: toucan-authn-post-install-script
+  name: {{ .Release.Name }}-toucan-authn-post-install-script
 data:
   init.sh: |- 
     #!/bin/sh
@@ -14,7 +14,7 @@ data:
 
       vault write toucan_oauthapp_tenant/servers/${tenant_uuid}/${tenant_uuid}-oauth/${client_id} \
         provider=oidc \
-        provider_options=issuer_url=https://auth.toucan.local/${tenant_uuid}/oauth/oauth-anonymous \
+        provider_options=issuer_url=http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host }}/${tenant_uuid}/oauth/oauth-anonymous \
         client_id=${client_id} \
         client_secret=${client_secret}
     }
