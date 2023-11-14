@@ -1,0 +1,47 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: "{{ .Release.Name }}-post-install-job"
+  labels:
+    app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+    app.kubernetes.io/instance: {{ .Release.Name | quote }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  annotations:
+    # This is what defines this resource as a hook. Without this line, the
+    # job is considered part of the release.
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "-5"
+    "helm.sh/hook-delete-policy": hook-succeeded
+spec:
+  template:
+    metadata:
+      name: "{{ .Release.Name }}"
+      labels:
+        app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
+        app.kubernetes.io/instance: {{ .Release.Name | quote }}
+        helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: post-install-job
+        image: "hashicorp/vault:1.12.1"
+        command: ["/bin/sh", "-c", "sleep {{ default "120" .Values.configuration.vaultPostInstallSleepTime }} && sh /tmp/init.sh"]
+        env:
+        - name: VAULT_ADDR
+          value: "{{ .Values.configuration.vaultPostInstallEnvironment.vaultAddr | default (printf "http://%s-%s.%s.svc.cluster.local:8200" .Release.Name "vault" .Release.Namespace ) }}"
+        - name: VAULT_SKIP_VERIFY
+          value: "{{ .Values.configuration.vaultPostInstallEnvironment.vaultSkipVerify | default "true" }}"
+        - name: VAULT_TOKEN
+          value: "{{ .Values.configuration.vaultPostInstallEnvironment.vaultToken | default .Values.vault.server.dev.devRootToken }}"
+        volumeMounts:
+        - name: init-script
+          mountPath: /tmp/
+      volumes:
+      - name: init-script
+        configMap:
+          name: {{ .Release.Name }}-toucan-authn-post-install-script
+          items:
+          - key: init.sh
+            path: init.sh
+

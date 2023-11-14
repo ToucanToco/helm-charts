@@ -1,0 +1,12 @@
+{{- if .Values.idsvr.ingress.runtime.enabled }}
+Curity: http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host}}
+{{- end }}
+{{- if and .Values.idsvr.curity.config.uiEnabled .Values.idsvr.ingress.admin.enabled }}
+Admin UI: http{{ if .Values.idsvr.ingress.admin.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.admin.host}}/admin
+{{- end }}
+
+{{- if and .Values.vault.enabled .Values.vault.server.dev.enabled }}
+Vault Dev Root Token: {{ .Values.vault.server.dev.devRootToken }}
+{{- end }}
+
+** Please wait for a few minutes until the deployment is complete. The admin and runtime node(s) will wait for the cluster key to be created by the Job **

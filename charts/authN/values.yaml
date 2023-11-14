@@ -1,0 +1,165 @@
+# Default values for authN.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+configuration:
+  tenantId: 7880d520-4df4-4b87-b26d-eb3a96ef36a2 # Can be changed to another uuid
+  encryptionKey: "SUPER_SECRET_KEY_CHANGE_ME"
+  admin_password: "admin"
+  # use the --set-file flag to specify the key path to load
+  # ex: --set-file configuration.keys.public.impersonateUserTokenRsaKey=/path/to/my/key.rsa
+  keys:
+    public:
+      impersonateUserTokenRsaKey: "CHANGE_ME"
+      embedTokenRsaKey: "CHANGE_ME"
+      tokenEncryptionPublicKey: "CHANGE_ME"
+    private:
+      tokenEncryptionPrivateKey: "CHANGE_ME"
+  oidcClients:
+    gatewayToucan:
+      secret: "gateway_toucan"
+    toucanAdminManagementClient:
+      secret: "toucan_admin_management_client"
+    toucanEmbedClient:
+      secret: "toucan_embed"
+    toucanImpersonateServiceClient:
+      secret: "toucan_impersonate_service_client"
+    toucanImpersonateServiceEmbedClient:
+      secret: "toucan_impersonate_service_embed_client"
+    toucanInfraAdminClient:
+      secret: "toucan_infra_admin_client"
+    toucanLaputaWebsocketClient:
+      secret: "toucan_laputa_websocket_client"
+    toucanMicroServiceClient:
+      secret: "toucan_micro_service_client"
+  dataSource:
+      connection-string: jdbc:postgresql://postgres:5432/authn-service
+      driver: org.postgresql.Driver
+      username: user
+      password: password
+      enable-pool-metrics: true
+  vaultPostInstallSleepTime: 120
+  vaultPostInstallEnvironment: {}
+    # Omit if using the default vault server
+    # vaultAddr: http://authn-vault:8200
+    # vaultSkipVerify: "true"
+    # vaultToken: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
+  allowedOrigins:
+    - "http://localhost:8000"
+
+# Do not override this unless you know what you're doing
+# Values can be found here (https://github.com/curityio/idsvr-helm/tree/master/idsvr)
+idsvr:
+  revisionHistoryLimit: 2
+  curity:
+    admin:
+      logging:
+        level: DEBUG
+    runtime:
+      service:
+        type: ClusterIP
+        port: 8443
+      logging:
+        level: DEBUG
+      additionalBaseUrl: []
+    config:
+      uiEnabled: true
+      configuration: 
+        - configMapRef:
+            name: toucan-on-prem-configuration
+            items:
+              - key: config.xml
+                path: config.xml
+    adminUiHttp: true
+  ingress:
+    admin:
+      enabled: false
+      host: authn.example.com
+      path: /admin
+      annotations:
+        kubernetes.io/ingress.class: nginx
+    runtime:
+      enabled: true
+      host: authn.example.com
+      path: /
+      annotations:
+        kubernetes.io/ingress.class: nginx
+
+# https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
+postgresql:
+  # disable if you want to use an existing db.
+  enabled: true
+  postgresqlPort: 5432
+  auth:
+    enablePostgresUser: false
+    postgresPassword: change_me_admin
+    database: authn_service
+    username: authn_service
+    password: authn_service_change_me
+  primary:
+    initdb:
+      scriptsConfigMap: toucan-authn-postgres-migration
+  resources: {}
+  persistence: {}
+  replication: {}
+  volumePermissions: {}
+
+# This vault will boot with dev mode enabled
+# For production use, we recommend to use a vault that supports HA
+# with dev mode disabled.
+# Configuration can be found here: https://github.com/hashicorp/vault-helm/blob/main/values.yaml
+vault:
+  enabled: true
+  injector:
+    enabled: false
+  ui:
+    enabled: true
+  server:
+    dataStorage:
+      enabled: true
+      size: 1Gi
+      mountPath: "/vault/data"
+      storageClass: null
+      accessMode: ReadWriteOnce
+      annotations: {}
+    auditStorage:
+      enabled: false
+    standalone:
+      enabled: true
+    ha:
+      enabled: false
+    # -- This is for dev mode only, production should use a vault with HA and a configured seal method.
+    dev:
+      enabled: true
+      devRootToken: "CHANGE_ME_SUPER_SECRET_FOR_DEV_ONLY"
+    volumes:
+      - name: plugins
+        emptyDir: {}
+    volumeMounts:
+      - mountPath: /usr/local/libexec/vault
+        name: plugins
+        readOnly: true
+    extraArgs: -dev-plugin-dir=/usr/local/libexec/vault
+    extraInitContainers:
+      # Install the oauthapp plugin
+      - name: oauthapp
+        image: "alpine"
+        command: [sh, -c]
+        args:
+          - cd /tmp &&
+            wget https://github.com/puppetlabs/vault-plugin-secrets-oauthapp/releases/download/v3.1.1/vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz -O vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz &&
+            tar -xf vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64.tar.xz &&
+            mv vault-plugin-secrets-oauthapp-v3.1.1-linux-amd64 /usr/local/libexec/vault/oauthapp &&
+            chmod +x /usr/local/libexec/vault/oauthapp
+        volumeMounts:
+          - name: plugins
+            mountPath: /usr/local/libexec/vault
+    postStart:
+      - /bin/sh
+      - -ec
+      - >
+        sleep 5 &&
+        vault secrets enable -path=toucan_oauthapp_tenant oauthapp
