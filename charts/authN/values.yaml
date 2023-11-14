@@ -77,13 +77,13 @@ idsvr:
   ingress:
     admin:
       enabled: false
-      host: auth-dev-riadh.toucantoco.guru
+      host: authn.example.com
       path: /admin
       annotations:
         kubernetes.io/ingress.class: nginx
     runtime:
       enabled: true
-      host: auth-dev-riadh.toucantoco.guru
+      host: authn.example.com
       path: /
       annotations:
         kubernetes.io/ingress.class: nginx
