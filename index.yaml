@@ -3,6 +3,34 @@ entries:
   authN:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-11-15T19:24:02.36814141Z"
+    dependencies:
+    - name: idsvr
+      repository: https://curityio.github.io/idsvr-helm
+      version: 0.12.15
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.9.13
+    - condition: vault.enabled
+      name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.23.0
+    description: A Helm for the Authentication Service
+    digest: 6d58f8b669ec5cddddf0534adec0d4adfd8f3439046318307ef3afdc6778dbc9
+    keywords:
+    - authN
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: authN
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.1.2/authN-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-11-15T19:20:53.673455507Z"
     dependencies:
     - name: idsvr
@@ -197,4 +225,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-15T19:20:53.673471386Z"
+generated: "2023-11-15T19:24:02.368158363Z"
