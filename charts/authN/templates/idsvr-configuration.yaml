@@ -842,9 +842,9 @@ data:
               <password>{{ .Values.postgresql.auth.password }}</password>
               <username>{{ .Values.postgresql.auth.username }}</username>
               {{- else }}
-              <connection-string>{{ .Values.configuration.dataSource.connection-string }}</connection-string>
+              <connection-string>{{ .Values.configuration.dataSource.connectionString }}</connection-string>
               <driver>{{ .Values.configuration.dataSource.driver }}</driver>
-              <enable-pool-metrics>{{ .Values.configuration.dataSource.enable-pool-metrics }}</enable-pool-metrics>
+              <enable-pool-metrics>{{ .Values.configuration.dataSource.enablePoolMetrics }}</enable-pool-metrics>
               <password>{{ .Values.configuration.dataSource.password }}</password>
               <username>{{ .Values.configuration.dataSource.username }}</username>
               {{- end }}

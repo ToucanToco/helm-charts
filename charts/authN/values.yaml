@@ -36,11 +36,11 @@ configuration:
     toucanMicroServiceClient:
       secret: "toucan_micro_service_client"
   dataSource:
-      connection-string: jdbc:postgresql://postgres:5432/authn-service
+      connectionString: jdbc:postgresql://postgres:5432/authn-service
       driver: org.postgresql.Driver
       username: user
       password: password
-      enable-pool-metrics: true
+      enablePoolMetrics: true
   vaultPostInstallSleepTime: 120
   vaultPostInstallEnvironment: {}
     # Omit if using the default vault server
