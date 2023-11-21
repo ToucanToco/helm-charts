@@ -84,7 +84,7 @@ affinity: {}
 # Configure redis using this value
 # cf: https://artifacthub.io/packages/helm/bitnami/redis/18.1.5
 redis:
-  enable: true
+  enabled: true
   auth:
     enabled: false
   architecture: standalone
