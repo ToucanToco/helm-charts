@@ -85,7 +85,7 @@ tolerations: []
 affinity: {}
 
 redis:
-  enable: true
+  enabled: true
   auth:
     enabled: false
   architecture: standalone

@@ -4,7 +4,7 @@ description: A Helm chart for Laputa
 
 type: application
 
-version: 0.1.0
+version: 0.1.1
 
 appVersion: "v113.0.1"
 
@@ -12,7 +12,7 @@ dependencies:
   # Redis 6.2
   - name: redis
     repository: https://charts.bitnami.com/bitnami
-    condition: redis.enable
+    condition: redis.enabled
     version: 16.13.2
   - name: mongodb
     repository: https://charts.bitnami.com/bitnami
