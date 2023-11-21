@@ -5,6 +5,6 @@ metadata:
   labels:
     {{- include "dataset.labels" . | nindent 4 }}
 data:
-{{- range $k, $v := .Values.datasetConfig }}
+{{- range $k, $v := .Values.configuration }}
   {{ $k }}: '{{ $v }}'
 {{- end }}

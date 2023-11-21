@@ -82,7 +82,7 @@ tolerations: []
 
 affinity: {}
 
-datasetConfig:
+configuration:
   TESTING:              False
   AUTH_DISABLED:        False
   ENVIRONMENT:          prod
