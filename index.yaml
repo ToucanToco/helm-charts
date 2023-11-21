@@ -127,6 +127,27 @@ entries:
   impersonate:
   - apiVersion: v2
     appVersion: v0.3.0
+    created: "2023-11-21T11:06:58.618701758Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.1.5
+    description: A Helm chart for Impersonate Service
+    digest: 2924ca92d29a6043d1a53aba5777ea1efcec6518dc169e63cbac2bce1eaacb5b
+    keywords:
+    - impersonate
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: impersonate
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/impersonate-0.2.1/impersonate-0.2.1.tgz
+    version: 0.2.1
+  - apiVersion: v2
+    appVersion: v0.3.0
     created: "2023-11-21T08:33:26.029067687Z"
     dependencies:
     - condition: redis.enable
@@ -271,4 +292,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-21T10:59:19.562929193Z"
+generated: "2023-11-21T11:06:58.618737945Z"
