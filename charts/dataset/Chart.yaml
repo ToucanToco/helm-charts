@@ -5,12 +5,12 @@ description: A Helm chart to deploy Toucan Dataset Service
 type: application
 
 appVersion: latest
-version: 0.3.1
+version: 0.3.2
 
 dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 11.9.13
+    version: 13.2.15
     condition: postgresql.enabled
 
 maintainers: # (optional)

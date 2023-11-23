@@ -109,6 +109,8 @@ postgresql:
   enabled: true
   # postgresqlHostname: preexisting-postgresql
   postgresqlPort: 5432
+  image:
+    tag: 14.5.0
   auth:
     enablePostgresUser: false
     postgresPassword: changeme-admin
