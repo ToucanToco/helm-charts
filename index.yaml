@@ -339,6 +339,29 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.1.0/laputa-0.1.0.tgz
     version: 0.1.0
+  layout:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-11-23T14:20:31.859457401Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: redis.enable
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.4.0
+    description: A Helm chart to deploy Toucan Layout Service
+    digest: 1516ec8a67f465f82492252a871262c80c9c581d17184778a75b0d58e7ecf666
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: layout
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/layout-0.1.0/layout-0.1.0.tgz
+    version: 0.1.0
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
@@ -392,4 +415,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-23T10:28:42.232450652Z"
+generated: "2023-11-23T14:20:31.859480925Z"
