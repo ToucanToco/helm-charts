@@ -93,6 +93,8 @@ postgresql:
   # disable if you want to use an existing db.
   enabled: true
   postgresqlPort: 5432
+  image:
+    tag: 14.5.0
   auth:
     enablePostgresUser: false
     postgresPassword: change_me_admin
