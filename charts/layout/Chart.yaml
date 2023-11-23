@@ -1,0 +1,22 @@
+apiVersion: v2
+name: layout
+description: A Helm chart to deploy Toucan Layout Service
+
+type: application
+
+appVersion: latest
+version: 0.1.0
+
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 13.2.15
+    condition: postgresql.enabled
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    condition: redis.enable
+    version: 18.4.0
+
+maintainers: # (optional)
+  - name: Riadh Meghenem
+    email: riadh.meghenem@toucantoco.com
