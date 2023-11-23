@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "layout.fullname" . }}-env
+  labels:
+    {{- include "layout.labels" . | nindent 4 }}
+data:
+{{- range $k, $v := .Values.configuration }}
+  {{ $k }}: '{{ $v }}'
+{{- end }}

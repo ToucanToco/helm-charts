@@ -1,0 +1,134 @@
+# Default values for layout.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: quay.io/toucantoco/layout-service
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: v0.10.3
+
+imagePullSecrets:
+  - name: quay
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: layout.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: layout-tls
+  #    hosts:
+  #      - layout.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+configuration:
+  NODE_ENV:                      production
+  DEACTIVATE_AUTH:               "false"
+  ALGORITHMS:                    "RS512"
+  AUDIENCES:                     "workspace-toucan toucan-infra-admin-client toucan-micro-service-client toucan-impersonate-service-client toucan-embed-client toucan-impersonate-service-embed-client"
+  JWKS_URI:                      "https://AUTH-DOMAIN/__TENANT_ID__/oauth/oauth-anonymous/jwks"
+  DATASET_SERVICE_URL:           "https://DATASET-SERVICE-URL.com"
+  MIN_TIME_BETWEEN_CALLS:        300000
+  PUBLIC_KEY_CACHE_TTL:          43200000
+  LAYOUT_SERVICE_CACHE_DISABLED: false
+  LAYOUT_SERVICE_CACHE_HOST:     layout-redis-master
+  LAYOUT_SERVICE_CACHE_PORT:     6379
+  LAYOUT_SERVICE_CACHE_TTL:      3600000
+  TRACING_ENABLED:               false
+  TRACING_SAMPLING:              "parentbase_always_off"
+  TRACING_HTTP_ENDPOINT:         "__TRACING_ENDPOINT__"
+  TRACING_HTTP_URL_PATH:         "/v1/traces"
+  TRACING_HTTP_INSECURE:         true
+  TRACING_HTTP_AUTHENTICATION:   false
+  SENTRY_DSN:                    "__SENTRY_DSN__"
+
+redis:
+  enabled: true
+  auth:
+    enabled: false
+  architecture: standalone
+
+# https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
+postgresql:
+  # disable if you want to use an existing db; in which case the values below
+  # must match those of that external postgres instance
+  enabled: true
+  # postgresqlHostname: preexisting-postgresql
+  postgresqlPort: 5432
+  image:
+    tag: 14.5.0
+  auth:
+    enablePostgresUser: false
+    postgresPassword: changeme-admin
+    database: layout-service
+    username: layout-service
+    schema:   layout_service
+    password: changeme
+  resources: {}
+  persistence: {}
+  replication: {}
+  volumePermissions: {}
+  primary:
+    initdb:
+      scriptsConfigMap: toucan-layout-psql-init
