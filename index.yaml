@@ -3,6 +3,34 @@ entries:
   authN:
   - apiVersion: v2
     appVersion: latest
+    created: "2023-11-23T10:28:41.996529752Z"
+    dependencies:
+    - name: idsvr
+      repository: https://curityio.github.io/idsvr-helm
+      version: 0.12.15
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: vault.enabled
+      name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.23.0
+    description: A Helm for the Authentication Service
+    digest: a913d85460efb9baf3b279b1aeb4ce3c2889a699d26dcd26283cf712bb3b3e35
+    keywords:
+    - authN
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: authN
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.1.3/authN-0.1.3.tgz
+    version: 0.1.3
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-11-15T19:24:02.36814141Z"
     dependencies:
     - name: idsvr
@@ -86,6 +114,24 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.1.0/authN-0.1.0.tgz
     version: 0.1.0
   dataset:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-11-23T10:28:42.232394316Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart to deploy Toucan Dataset Service
+    digest: b10b0d831929e52aff8124f12303cd05eca8d25bbba1be062f603628f4c06d5e
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: dataset
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.3.2/dataset-0.3.2.tgz
+    version: 0.3.2
   - apiVersion: v2
     appVersion: latest
     created: "2023-11-23T10:15:45.838043825Z"
@@ -346,4 +392,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-23T10:15:45.838066216Z"
+generated: "2023-11-23T10:28:42.232450652Z"
