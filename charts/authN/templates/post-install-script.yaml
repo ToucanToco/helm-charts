@@ -34,8 +34,28 @@ data:
         scopes=${scopes}
     }
 
+    create_super_admin_user() {
+      local tenant_uuid="$1"
+      local username="$2"
+      local password="$3"
+      local workspace="$4"
+      
+      local token=$(vault read -field="access_token" toucan_oauthapp_tenant/self/38de85a6-106e-40e5-aac5-e149be1e4c97/toucan-admin-management-client)
+
+      curl --request POST \
+        --url http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host }}/${tenant_uuid}/user-management/graphql/admin \
+        --header "Authorization: Bearer ${token}" \
+        --header "Content-Type: application/json" \
+        --data '{"query":"mutation {\n\tcreateAccount(\n\t\tinput: {\n\t\t\tfields: {\n\t\t\t\tuserName: \"'${username}'\"\n\t\t\t\temails: { value: \"'${username}'\", primary: true }\n\t\t\t\tactive: true\n\t\t\t\tpassword: \"'${password}'\"\n\t\t\t\tlegacyLaputaRoles: \"{\\\"workspace_'${workspace}'\\\":{\\\"roles\\\":[\\\"SUPER_ADMIN\\\"]}}\"\n\t\t\t}\n\t\t}\n\t) {\n\t\taccount {\n\t\t\tid\n\t\t\tuserName\n\t\t\tprofileUrl\n\t\t}\n\t}\n}\n"}'
+    }
+
+    # Install Curl
+    apk update && apk add curl
+
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "{{ .Values.configuration.oidcClients.toucanAdminManagementClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "accounts"
 
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "micro-service"
+
+    create_super_admin_user "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.superAdminUser.username }}" "{{ .Values.configuration.superAdminUser.password }}" "{{ .Values.configuration.workspaceId | replace '-' '' }}"

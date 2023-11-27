@@ -27,6 +27,9 @@ spec:
       - name: post-install-job
         image: "hashicorp/vault:1.12.1"
         command: ["/bin/sh", "-c", "sleep {{ default "120" .Values.configuration.vaultPostInstallSleepTime }} && sh /tmp/init.sh"]
+        securityContext:
+          allowPrivilegeEscalation: false
+          runAsUser: 0
         env:
         - name: VAULT_ADDR
           value: "{{ .Values.configuration.vaultPostInstallEnvironment.vaultAddr | default (printf "http://%s-%s.%s.svc.cluster.local:8200" .Release.Name "vault" .Release.Namespace ) }}"

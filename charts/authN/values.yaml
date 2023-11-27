@@ -7,8 +7,13 @@ fullnameOverride: ""
 
 configuration:
   tenantId: 7880d520-4df4-4b87-b26d-eb3a96ef36a2 # Can be changed to another uuid
+  workspaceId: bbb22dd4-9bcd-45f9-a69c-f10f7bc7bf6d # Can be changed to another uuid
   encryptionKey: "SUPER_SECRET_KEY_CHANGE_ME"
-  admin_password: "admin"
+  authNAdminPassword: "admin"
+  toucan:
+    superAdminUser:
+      username: "dev@toucantoco.com"
+      password: "admin"
   # use the --set-file flag to specify the key path to load
   # ex: --set-file configuration.keys.public.impersonateUserTokenRsaKey=/path/to/my/key.rsa
   keys:
