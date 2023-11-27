@@ -40,7 +40,7 @@ data:
       local password="$3"
       local workspace="$4"
       
-      local token=$(vault read -field="access_token" toucan_oauthapp_tenant/self/38de85a6-106e-40e5-aac5-e149be1e4c97/toucan-admin-management-client)
+      local token=$(vault read -field="access_token" toucan_oauthapp_tenant/self/${tenant_uuid}/toucan-admin-management-client)
 
       curl --request POST \
         --url http{{ if .Values.idsvr.ingress.runtime.secretName }}s{{ end }}://{{ .Values.idsvr.ingress.runtime.host }}/${tenant_uuid}/user-management/graphql/admin \
