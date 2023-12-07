@@ -91,7 +91,7 @@ redis:
   architecture: standalone
 
 mongodb:
-  enable: true
+  enabled: true
   architecture: standalone
   auth:
     enabled: true
