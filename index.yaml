@@ -431,6 +431,31 @@ entries:
   laputa:
   - apiVersion: v2
     appVersion: v113.0.1
+    created: "2023-12-07T14:39:01.279669357Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.13.2
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    description: A Helm chart for Laputa
+    digest: e43007d80ecc7762ae32762f6f3c89b85c7f3cffb514b7907b90325afcc3adcf
+    keywords:
+    - laputa
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: laputa
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.1.2/laputa-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: v113.0.1
     created: "2023-11-21T10:59:19.562912211Z"
     dependencies:
     - condition: redis.enabled
@@ -480,6 +505,28 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.1.0/laputa-0.1.0.tgz
     version: 0.1.0
   layout:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2023-12-07T14:39:01.533808254Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.4.0
+    description: A Helm chart to deploy Toucan Layout Service
+    digest: 65065a3c04c70e0ae839f41c3bec364c469a7a06cab84c0d93473540b784fe6a
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: layout
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/layout-0.1.1/layout-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: latest
     created: "2023-11-23T14:20:31.859457401Z"
@@ -555,4 +602,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-28T17:37:21.421604793Z"
+generated: "2023-12-07T14:39:01.533861343Z"
