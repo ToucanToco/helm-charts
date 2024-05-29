@@ -14,7 +14,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
         checksum/secret: {{ include (print $.Template.BasePath "/secret.yml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
           {{- toYaml . | nindent 8 }}
@@ -35,24 +35,23 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
           envFrom:
             - secretRef:
                 name: {{ include "layout.fullname" . }}-db
-            - configMapRef:
-                name: {{ include "layout.fullname" . }}-env
           command: ["/bin/sh", "-c", "yarn migrate:prod"]
-          imagePullPolicy: Always
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- toYaml .Values.env | nindent 12 }}
           envFrom:
             - secretRef:
                 name: {{ include "layout.fullname" . }}-db
-            - configMapRef:
-                name: {{ include "layout.fullname" . }}-env
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -67,6 +66,16 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.env.CONFIG_FILE_PATH }}
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "layout.fullname" . }}-config
+            items:
+            - key: config.yml
+              path: config.yml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
