@@ -8,7 +8,7 @@ image:
   repository: quay.io/toucantoco/layout-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: master
+  tag: v0.24.4
 
 imagePullSecrets:
   - name: quay
