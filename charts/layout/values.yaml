@@ -8,7 +8,7 @@ image:
   repository: quay.io/toucantoco/layout-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.10.3
+  tag: master
 
 imagePullSecrets:
   - name: quay
@@ -108,39 +108,44 @@ configuration:
       min_ttl_seconds: 300000
       uri: https://AUTH-DOMAIN/__TENANT_ID__/oauth/oauth-anonymous/jwks
   database_postgres:
-      url:
-      url_admin:
+    url:       POSTGRESQL_URL
+    url_admin: POSTGRESQL_URL_ADMIN
   database_redis:
-      cache_ttl_seconds: 3600000
-      host:              layout-redis-master
-      port:              6379
+    cache_ttl_seconds: 3600000
+    host:              layout-redis-master
+    port:              6379
+  database_spicedb:
+    ca_cert_path:  /app/mycert.pem
+    preshared_key: PSK
+    url:           SPICEDB_URL
   environment: production
   flagsmith:
-      url: FLAGSMITH_URL
+    url: FLAGSMITH_URL
   log_level: INFO
   profiling:
-      application_name:    layout-service
-      basic_auth_enabled:  true
-      basic_auth_password: MY_PASS
-      basic_auth_username: toucantoco
-      enabled:             false
-      sample_rate:         100
-      server_address:      PYROSCOPE_URL
-      tags:
-          env: PROJECT_NAME
+    application_name:    layout-service
+    basic_auth_enabled:  true
+    basic_auth_password: MY_PASS
+    basic_auth_username: toucantoco
+    enabled:             false
+    sample_rate:         100
+    server_address:      PYROSCOPE_URL
+    tags:
+      env: PROJECT_NAME
   specific:
-      dataset_service_url: https://DATASET-SERVICE-URL.com
-      sentry_dsn:          __SENTRY_DSN__
+    dataset_service_url:         https://DATASET-SERVICE-URL.com
+    sentry_dsn:                  __SENTRY_DSN__
+    workspace_database_postgres: https://WORKSPACE-SERVICE-URL.com
   tracing:
-      attributes:
-          service_name: layout-service
-      enabled: false
-      http:
-          authentication: false
-          endpoint: __TRACING_ENDPOINT__
-          insecure: true
-          url_path: /v1/traces
-      sampling: parentbase_always_off
+    attributes:
+      service_name: layout-service
+    enabled: false
+    http:
+      authentication: false
+      endpoint: __TRACING_ENDPOINT__
+      insecure: true
+      url_path: /v1/traces
+    sampling: parentbase_always_off
 
 redis:
   enabled: true
