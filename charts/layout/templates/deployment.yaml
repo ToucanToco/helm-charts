@@ -15,7 +15,6 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
-        checksum/secret: {{ include (print $.Template.BasePath "/secret.yml") . | sha256sum }}
         {{- with .Values.podAnnotations }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -37,9 +36,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: {{ include "layout.fullname" . }}-db
           command: ["/bin/sh", "-c", "yarn migrate:prod"]
           volumeMounts:
             - name:      config
@@ -53,9 +49,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             {{- toYaml .Values.env | nindent 12 }}
-          envFrom:
-            - secretRef:
-                name: {{ include "layout.fullname" . }}-db
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
