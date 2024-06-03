@@ -41,6 +41,10 @@ spec:
             - secretRef:
                 name: {{ include "layout.fullname" . }}-db
           command: ["/bin/sh", "-c", "yarn migrate:prod"]
+          volumeMounts:
+            - name:      config
+              mountPath: "/app/config/config.yml"
+              subPath:   "config.yml"
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
