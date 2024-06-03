@@ -67,8 +67,9 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-            - mountPath: {{ .Values.env.CONFIG_FILE_PATH }}
-              name: config
+            - name:      config
+              mountPath: "/app/config/config.yml"
+              subPath:   "config.yml"
       volumes:
         - name: config
           configMap:

@@ -6,9 +6,19 @@ metadata:
     {{- include "layout.labels" . | nindent 4 }}
 data:
   config.yml: >-
-    {{- with .Values.configuration.auth }}
-      {{- toYaml . | nindent 2 }}
-    {{- end }}
-    {{- with .Values.configuration.database_redis }}
-      {{- toYaml . | nindent 2 }}
-    {{- end }}
+    auth:
+      {{- toYaml .Values.configuration.auth | nindent 6 }}
+    database_redis:
+      {{- toYaml .Values.configuration.database_redis | nindent 6 }}
+    environment:
+      {{- toYaml .Values.configuration.environment | nindent 6 }}
+    flagsmith:
+      {{- toYaml .Values.configuration.flagsmith | nindent 6 }}
+    log_level:
+      {{- toYaml .Values.configuration.log_level | nindent 6 }}
+    profiling:
+      {{- toYaml .Values.configuration.profiling | nindent 6 }}
+    specific:
+      {{- toYaml .Values.configuration.specific | nindent 6 }}
+    tracing:
+      {{- toYaml .Values.configuration.tracing | nindent 6 }}

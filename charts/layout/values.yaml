@@ -86,8 +86,10 @@ tolerations: []
 affinity: {}
 
 env:
-  CONFIG_FILE_PATH: "/app/config/config.yml"
-  NODE_ENV:         "production"
+  - name:  CONFIG_FILE_PATH
+    value: "/app/config/config.yml"
+  - name:  NODE_ENV
+    value: "production"
 
 configuration:
   auth:
