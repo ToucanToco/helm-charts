@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "authz.fullname" . }}-bootstrap
+  labels:
+    {{- include "authz.labels" . | nindent 4 }}
+data:
+  bootstrap.yaml: |
+    schema: |-
+      definition user {}
+
+      definition toucan {
+        relation admin: user
+        permission super_admin = admin
+      }
+
+      definition group {
+        relation parent: tenant
+        relation admin: user
+        relation member: user
+        permission edit = admin
+      }
+
+      definition tenant {
+        relation toucan: toucan
+        relation admin: user | group#member
+        relation member: user | group#member
+        permission super_admin = admin & toucan->super_admin
+        permission edit = admin
+      }
+
+      definition workspace {
+        relation parent: tenant
+        relation admin: user | group#member
+        relation viewer: user | group#member
+        permission edit = admin + parent->edit
+        permission access = viewer + edit
+      }
+
+      definition app {
+        relation parent: workspace
+        relation owner: user | group#member
+        relation editor: user | group#member
+        relation data_editor: user | group#member
+        relation design_editor: user | group#member
+        relation validator: user | group#member
+        relation business_specialist: user | group#member
+        relation viewer: user | group#member
+        permission own = owner + parent->edit
+        permission edit = owner + editor + parent->edit
+        permission edit_data = data_editor + edit
+        permission edit_design = design_editor + edit
+        permission validate = validator + edit_data + edit_design
+        permission enrich = edit_design + business_specialist
+        permission view = viewer + validate + enrich
+      }
+
+      definition pdf_report {
+          relation owner: user
+          relation viewer: user | app#view
+          relation editor: user | app#edit_design
+          permission view = viewer + editor + owner
+          permission edit = editor + owner
+          permission delete = owner + editor
+          permission share_access = owner + editor
+      }

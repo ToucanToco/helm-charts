@@ -1,0 +1,21 @@
+apiVersion:  v2
+name:        authz
+description: A Helm chart for the Authorization Service
+type:        application
+
+version:     0.1.0
+appVersion:  latest
+
+dependencies:
+  - name:       postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version:    13.2.15
+    condition:  postgresql.enabled
+
+keywords:
+  - authZ
+  - toucan
+
+maintainers:
+  - name: Evan Tissot
+    email: evan.tissot@toucantoco.com
