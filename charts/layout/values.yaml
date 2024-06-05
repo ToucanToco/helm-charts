@@ -115,7 +115,7 @@ configuration:
     host:              layout-redis-master
     port:              6379
   database_spicedb:
-    ca_cert_path:  /app/mycert.pem
+    ca_cert_path:  /app/custom_certs/ca-spicedb.pem
     preshared_key: PSK
     url:           SPICEDB_URL
   environment: production
@@ -146,6 +146,10 @@ configuration:
       insecure: true
       url_path: /v1/traces
     sampling: parentbase_always_off
+
+keys:
+  spicedb:
+    ca: SPICEDB_CA
 
 redis:
   enabled: true

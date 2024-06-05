@@ -41,6 +41,8 @@ spec:
             - name:      config
               mountPath: "/app/config/config.yml"
               subPath:   "config.yml"
+            - name:      {{ include "layout.fullname" . }}-spicedb-ca
+              mountPath: /app/custom_certs
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -67,6 +69,8 @@ spec:
             - name:      config
               mountPath: "/app/config/config.yml"
               subPath:   "config.yml"
+            - name:      {{ include "layout.fullname" . }}-spicedb-ca
+              mountPath: /app/custom_certs
       volumes:
         - name: config
           configMap:
@@ -74,6 +78,9 @@ spec:
             items:
             - key: config.yml
               path: config.yml
+        - name: {{ include "layout.fullname" . }}-spicedb-ca
+          secret:
+            secretName: {{ include "layout.fullname" . }}-spicedb-ca
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
