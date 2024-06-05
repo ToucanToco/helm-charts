@@ -1,0 +1,10 @@
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "dataset.fullname" . }}-spicedb-ca
+  labels:
+    {{- include "dataset.labels" . | nindent 4 }}
+data:
+  ca-spicedb.pem: {{ .Values.keys.spicedb.ca | b64enc }}

@@ -112,7 +112,7 @@ configuration:
     url:       POSTGRESQL_URL
     url_admin: POSTGRESQL_URL_ADMIN
   database_spicedb:
-    ca_cert_path:  /app/mycert.pem
+    ca_cert_path:  /app/custom_certs/ca-spicedb.pem
     preshared_key: PSK
     url:           SPICEDB_URL
   environment: production
@@ -157,6 +157,10 @@ configGunicorn:
   bind:                "0.0.0.0:80"
   wsgi_app:            "dataset_service.main:app"
   max_requests_jitter: 200
+
+keys:
+  spicedb:
+    ca: SPICEDB_CA
 
 # https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
 postgresql:

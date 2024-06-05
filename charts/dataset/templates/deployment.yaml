@@ -45,6 +45,8 @@ spec:
             - name:      config-gunicorn
               mountPath: /config/gunicorn.conf.py
               subPath:   gunicorn.conf.py
+            - name:      {{ include "dataset.fullname" . }}-spicedb-ca
+              mountPath: /app/custom_certs
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -68,12 +70,14 @@ spec:
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
-             - name:      config
-               mountPath: /config/config.yml
-               subPath:   config.yml
-             - name:      config-gunicorn
-               mountPath: /config/gunicorn.conf.py
-               subPath:   gunicorn.conf.py
+            - name:      config
+              mountPath: /config/config.yml
+              subPath:   config.yml
+            - name:      config-gunicorn
+              mountPath: /config/gunicorn.conf.py
+              subPath:   gunicorn.conf.py
+            - name:      {{ include "dataset.fullname" . }}-spicedb-ca
+              mountPath: /app/custom_certs
       volumes:
         - name: config
           configMap:
@@ -84,6 +88,9 @@ spec:
         - name: config-gunicorn
           configMap:
             name: {{ include "dataset.fullname" . }}-config-gunicorn
+        - name: {{ include "dataset.fullname" . }}-spicedb-ca
+          secret:
+            secretName: {{ include "dataset.fullname" . }}-spicedb-ca
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
