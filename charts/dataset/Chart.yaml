@@ -5,7 +5,7 @@ description: A Helm chart to deploy Toucan Dataset Service
 type: application
 
 appVersion: latest
-version: 0.3.2
+version: 0.4.0
 
 dependencies:
   - name: postgresql

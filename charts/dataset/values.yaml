@@ -8,7 +8,7 @@ image:
   repository: quay.io/toucantoco/dataset_service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.3.0
+  tag: v0.20.3
 
 imagePullSecrets:
   - name: quay
@@ -78,29 +78,85 @@ autoscaling:
 
 nodeSelector: {}
 
+volumes:
+  name: config
+
 tolerations: []
 
 affinity: {}
 
+env:
+  - name:  CONFIG_FILE_PATH
+    value: "/config/config.yml"
+
 configuration:
-  TESTING:              False
-  AUTH_DISABLED:        False
-  ENVIRONMENT:          prod
-  # Public routes
-  NO_AUTH_ROUTES:      '["/", "/metrics"]'
-  #  __TENANT_ID__ will be substituted by the tenant_id
-  JWKS_URI:            "https://_IDP_URI_/__TENANT_ID__/oauth/oauth-anonymous/jwks"
-  JWK_AUDIENCES:       '["workspace-toucan", "toucan-infra-admin-client", "toucan-micro-service-client", "toucan-impersonate-service-client", "toucan-embed-client"]'
-  JWK_ALGORITHMS:      '["RS512"]'
-  # Minimum time between two JWK keys refreshs
-  JWK_MIN_TTL_SECONDS: 300
-  # Max time between two JWK keys refreshs (3600 * 12)
-  JWK_MAX_TTL_SECONDS: 43200
-  # After how long a JWK refresh should time out
-  JWK_REFRESH_TIMEOUT_SECONDS: 2
-  LOG_STRUCTURED_JSON_FORMAT: True
-  SENTRY_DSN:             "__SENTRY__DSN__"
-  DATASET_SERVICE_SCHEMA: "public"
+  auth:
+    disabled: false
+    jwks:
+      algorithms:
+      - RS512
+      audiences:
+      - workspace-toucan
+      - toucan-infra-admin-client
+      - toucan-micro-service-client
+      - toucan-impersonate-service-client
+      - toucan-embed-client
+      - toucan-impersonate-service-embed-client
+      max_ttl_seconds: 43200
+      min_ttl_seconds: 300
+      refresh_timeout_seconds: 2
+      uri: https://AUTH-DOMAIN/__TENANT_ID__/oauth/oauth-anonymous/jwks
+  database_postgres:
+    connection_pool_size: 20
+    schema: dataset_service
+    url:       POSTGRESQL_URL
+    url_admin: POSTGRESQL_URL_ADMIN
+  database_spicedb:
+    ca_cert_path:  /app/mycert.pem
+    preshared_key: PSK
+    url:           SPICEDB_URL
+  environment: production
+  flagsmith:
+    url: FLAGSMITH_URL
+  profiling:
+    application_name:    dataset-service
+    basic_auth_enabled:  true
+    basic_auth_password: MYPASS
+    basic_auth_username: toucantoco
+    enabled:             false
+    sample_rate:         100
+    server_address:      PYROSCOPE_URL
+    tags:
+        env: change_me
+  specific:
+    debug_log_routes:
+      - /
+      - /metrics
+    log_structured_json_format: true
+    no_auth_routes:
+      - /
+      - /metrics
+    sentry_dsn: __SENTRY_DSN__
+    testing: false
+    workspace_service_url: WORKSPACE_SERVICE_URL
+  tracing:
+    attributes:
+      service_name: dataset-service
+    enabled: false
+    http:
+      authentication: false
+      endpoint:       __TRACING_ENDPOINT__
+      insecure:       true
+      url_path:       /v1/traces
+    sampling: parentbase_always_off
+
+configGunicorn:
+  workers:             4
+  worker_class:        "uvicorn.workers.UvicornWorker"
+  keepalive:           10
+  bind:                "0.0.0.0:80"
+  wsgi_app:            "dataset_service.main:app"
+  max_requests_jitter: 200
 
 # https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
 postgresql:
