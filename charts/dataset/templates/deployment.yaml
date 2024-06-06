@@ -40,7 +40,7 @@ spec:
           command: ["/bin/sh", "-c", "/admin_scripts/run_migrations.sh"]
           volumeMounts:
             - name:      config
-              mountPath: /app/config/config.yml
+              mountPath: /config/config.yml
               subPath:   config.yml
             - name:      config-gunicorn
               mountPath: /config/gunicorn.conf.py
