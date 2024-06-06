@@ -5,7 +5,7 @@ description: A Helm chart to deploy Toucan Dataset Service
 type: application
 
 appVersion: latest
-version: 0.4.0
+version: 0.4.1
 
 dependencies:
   - name: postgresql
@@ -14,5 +14,5 @@ dependencies:
     condition: postgresql.enabled
 
 maintainers: # (optional)
-  - name: Riadh Meghenem
-    email: riadh.meghenem@toucantoco.com
+  - name: Toucan Toco
+    email: infra@toucantoco.com

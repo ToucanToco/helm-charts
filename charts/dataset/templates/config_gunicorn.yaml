@@ -9,5 +9,5 @@ metadata:
 data:
   gunicorn.conf.py: |
   {{- range $k, $v := .Values.configGunicorn }}
-    {{ $k }}={{ $v }}
+    {{ $k }}="{{ $v }}"
   {{- end }}
