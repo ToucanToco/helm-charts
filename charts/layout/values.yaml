@@ -135,7 +135,9 @@ configuration:
   specific:
     dataset_service_url:         https://DATASET-SERVICE-URL.com
     sentry_dsn:                  __SENTRY_DSN__
-    workspace_database_postgres: https://WORKSPACE-SERVICE-URL.com
+    workspace_database_postgres:
+      url:       POSTGRESQL_URL
+      url_admin: POSTGRESQL_URL_ADMIN
   tracing:
     attributes:
       service_name: layout-service
