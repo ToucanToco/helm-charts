@@ -65,7 +65,7 @@ spec:
           - --chromium-deny-list={{ .Values.chromium.denyList }}
           {{- end }}
           {{- if .Values.chromium.ignoreCertificateErrors }}
-          - --chromium-ignore-certificate-errors 
+          - --chromium-ignore-certificate-errors
           {{- end }}
           {{- if .Values.chromium.disableWebSecurity }}
           - --chromium-disable-web-security

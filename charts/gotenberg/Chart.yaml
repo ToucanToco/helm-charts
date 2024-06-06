@@ -5,9 +5,9 @@ description: A Helm chart for Gotenberg
 
 type: application
 
-version: "0.1.0"
+version: "0.1.1"
 
-appVersion: "7.7.0"
+appVersion: "8.2.2"
 
 keywords:
   - gotenberg
@@ -17,5 +17,5 @@ sources:
   - https://github.com/gotenberg/gotenberg
 
 maintainers:
-  - name: Riadh Meghenem
-    email: riadh.meghenem@toucantoco.com
+  - name: Toucan Toco
+    email: infra@toucantoco.com
