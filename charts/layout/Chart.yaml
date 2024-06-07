@@ -18,5 +18,5 @@ dependencies:
     version: 18.4.0
 
 maintainers: # (optional)
-  - name: Riadh Meghenem
-    email: riadh.meghenem@toucantoco.com
+  - name: Toucan Toco
+    email: infra@toucantoco.com
