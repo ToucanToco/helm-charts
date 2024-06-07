@@ -1,0 +1,120 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "authz.fullname" . }}
+  labels:
+    {{- include "authz.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "authz.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/env.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "authz.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "authz.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: tls
+          secret:
+            secretName: {{ include "authz.fullname" . }}-tls
+            defaultMode: 420
+        - name: bootstrap
+          configMap:
+            name: {{ include "authz.fullname" . }}-bootstrap
+            items:
+              - key:  bootstrap.yaml
+                path: bootstrap.yaml
+      initContainers:
+        - name: {{ .Chart.Name }}-migration
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "authz.fullname" . }}-env
+          command:
+            - spicedb
+            - migrate
+            - head
+          imagePullPolicy: Always
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - spicedb
+            - serve
+          ports:
+            - name: grpc
+              containerPort: 50051
+              protocol: TCP
+            - name: gateway
+              containerPort: 8443
+              protocol: TCP
+            - name: metrics
+              containerPort: 9090
+              protocol: TCP
+            - name: dispatch
+              containerPort: 50053
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "authz.fullname" . }}-env
+          resources: {}
+          volumeMounts:
+            - name:      tls
+              readOnly:  true
+              mountPath: /tls
+            - name:      bootstrap
+              readOnly:  true
+              mountPath: /etc/bootstrap/bootstrap.yaml
+              subPath:   bootstrap.yaml
+          livenessProbe:
+            exec:
+              command:
+                - grpc_health_probe
+                - '-v'
+                - '-addr=localhost:50051'
+                - '-tls'
+                - '-tls-no-verify'
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            exec:
+              command:
+                - grpc_health_probe
+                - '-v'
+                - '-addr=localhost:50051'
+                - '-tls'
+                - '-tls-no-verify'
+            timeoutSeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 5
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
