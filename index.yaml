@@ -580,6 +580,28 @@ entries:
   layout:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-07T08:34:31.77682712Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.4.0
+    description: A Helm chart to deploy Toucan Layout Service
+    digest: f4ca7acaaf6be0e6c8c1cbf7f4b4bf59c9542b50ebdb0a911824691f66e3f5bf
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: layout
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/layout-0.2.0/layout-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2023-12-07T14:39:01.533808254Z"
     dependencies:
     - condition: postgresql.enabled
@@ -675,4 +697,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-07T07:37:40.382938543Z"
+generated: "2024-06-07T08:34:31.776860613Z"
