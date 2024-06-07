@@ -253,6 +253,28 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.1.0/authN-0.1.0.tgz
     version: 0.1.0
+  authz:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-06-07T08:35:47.280594326Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart for the Authorization Service
+    digest: 3ff40eb6ba8d18d038f63e8dff7ad44c5fca8283c26502940310f5ef751db298
+    keywords:
+    - authZ
+    - toucan
+    maintainers:
+    - email: evan.tissot@toucantoco.com
+      name: Evan Tissot
+    name: authz
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authz-0.1.0/authz-0.1.0.tgz
+    version: 0.1.0
   dataset:
   - apiVersion: v2
     appVersion: latest
@@ -697,4 +719,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-07T08:34:31.776860613Z"
+generated: "2024-06-07T08:35:47.280627228Z"
