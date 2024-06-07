@@ -256,6 +256,24 @@ entries:
   dataset:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-07T07:04:54.488745304Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart to deploy Toucan Dataset Service
+    digest: c847ac83969cf55bf520d48a33ba547ef18032229dc1abdad2439280073cc7b5
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: dataset
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.4.1/dataset-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-05T06:43:36.043424742Z"
     dependencies:
     - condition: postgresql.enabled
@@ -363,6 +381,25 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.1.0/dataset-0.1.0.tgz
     version: 0.1.0
   gotenberg:
+  - apiVersion: v2
+    appVersion: 8.2.2
+    created: "2024-06-07T07:04:54.666636038Z"
+    description: A Helm chart for Gotenberg
+    digest: 12755d5307dbd516aa55ad800254c8245e917f8b7147b472748d5d88a072cd3d
+    icon: https://user-images.githubusercontent.com/8983173/130322857-185831e2-f041-46eb-a17f-0a69d066c4e5.png
+    keywords:
+    - gotenberg
+    - pdf
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: gotenberg
+    sources:
+    - https://github.com/gotenberg/gotenberg
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/gotenberg-0.1.1/gotenberg-0.1.1.tgz
+    version: 0.1.1
   - apiVersion: v2
     appVersion: 7.7.0
     created: "2023-09-28T12:30:39.534211348Z"
@@ -620,4 +657,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-05T06:43:36.043481419Z"
+generated: "2024-06-07T07:04:54.666722589Z"
