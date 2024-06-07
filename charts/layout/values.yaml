@@ -8,7 +8,7 @@ image:
   repository: quay.io/toucantoco/layout-service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: v0.10.3
+  tag: v0.24.4
 
 imagePullSecrets:
   - name: quay
@@ -78,30 +78,80 @@ autoscaling:
 
 nodeSelector: {}
 
+volumes:
+  name: config
+
 tolerations: []
 
 affinity: {}
 
+env:
+  - name:  CONFIG_FILE_PATH
+    value: "/app/config/config.yml"
+  - name:  NODE_ENV
+    value: "production"
+
 configuration:
-  NODE_ENV:                      production
-  DEACTIVATE_AUTH:               "false"
-  ALGORITHMS:                    "RS512"
-  AUDIENCES:                     "workspace-toucan toucan-infra-admin-client toucan-micro-service-client toucan-impersonate-service-client toucan-embed-client toucan-impersonate-service-embed-client"
-  JWKS_URI:                      "https://AUTH-DOMAIN/__TENANT_ID__/oauth/oauth-anonymous/jwks"
-  DATASET_SERVICE_URL:           "https://DATASET-SERVICE-URL.com"
-  MIN_TIME_BETWEEN_CALLS:        300000
-  PUBLIC_KEY_CACHE_TTL:          43200000
-  LAYOUT_SERVICE_CACHE_DISABLED: false
-  LAYOUT_SERVICE_CACHE_HOST:     layout-redis-master
-  LAYOUT_SERVICE_CACHE_PORT:     6379
-  LAYOUT_SERVICE_CACHE_TTL:      3600000
-  TRACING_ENABLED:               false
-  TRACING_SAMPLING:              "parentbase_always_off"
-  TRACING_HTTP_ENDPOINT:         "__TRACING_ENDPOINT__"
-  TRACING_HTTP_URL_PATH:         "/v1/traces"
-  TRACING_HTTP_INSECURE:         true
-  TRACING_HTTP_AUTHENTICATION:   false
-  SENTRY_DSN:                    "__SENTRY_DSN__"
+  auth:
+    disabled: false
+    jwks:
+      algorithms:
+        - RS512
+      audiences:
+        - workspace-toucan
+        - toucan-infra-admin-client
+        - toucan-micro-service-client
+        - toucan-impersonate-service-client
+        - toucan-embed-client
+        - toucan-impersonate-service-embed-client
+      max_ttl_seconds: 43200000
+      min_ttl_seconds: 300000
+      uri: https://AUTH-DOMAIN/__TENANT_ID__/oauth/oauth-anonymous/jwks
+  database_postgres:
+    url:       POSTGRESQL_URL
+    url_admin: POSTGRESQL_URL_ADMIN
+  database_redis:
+    cache_ttl_seconds: 3600000
+    host:              layout-redis-master
+    port:              6379
+  database_spicedb:
+    ca_cert_path:  /app/custom_certs/ca-spicedb.pem
+    preshared_key: PSK
+    url:           SPICEDB_URL
+  environment: production
+  flagsmith:
+    url: FLAGSMITH_URL
+  log_level: INFO
+  profiling:
+    application_name:    layout-service
+    basic_auth_enabled:  true
+    basic_auth_password: MY_PASS
+    basic_auth_username: toucantoco
+    enabled:             false
+    sample_rate:         100
+    server_address:      PYROSCOPE_URL
+    tags:
+      env: PROJECT_NAME
+  specific:
+    dataset_service_url:         https://DATASET-SERVICE-URL.com
+    sentry_dsn:                  __SENTRY_DSN__
+    workspace_database_postgres:
+      url:       POSTGRESQL_URL
+      url_admin: POSTGRESQL_URL_ADMIN
+  tracing:
+    attributes:
+      service_name: layout-service
+    enabled: false
+    http:
+      authentication: false
+      endpoint: __TRACING_ENDPOINT__
+      insecure: true
+      url_path: /v1/traces
+    sampling: parentbase_always_off
+
+keys:
+  spicedb:
+    ca: SPICEDB_CA
 
 redis:
   enabled: true
