@@ -256,6 +256,24 @@ entries:
   dataset:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-06-07T07:37:40.382877911Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart to deploy Toucan Dataset Service
+    digest: b9d37ce5a710931fe3e99e9f3176b8ed362493a23eb271bea2771b2f9e7daa84
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: dataset
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.4.2/dataset-0.4.2.tgz
+    version: 0.4.2
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-07T07:04:54.488745304Z"
     dependencies:
     - condition: postgresql.enabled
@@ -657,4 +675,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-07T07:04:54.666722589Z"
+generated: "2024-06-07T07:37:40.382938543Z"
