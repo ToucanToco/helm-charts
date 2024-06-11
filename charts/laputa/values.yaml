@@ -31,7 +31,7 @@ podSecurityContext:
   fsGroup: 1000
   # fsGroup: 2000
 
-securityContext: {} 
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -127,7 +127,7 @@ mongodb:
                   ...payloadUpdateOrCreateUser
               }
           );
-        } 
+        }
         else {
           db.createUser({
               user:  username,
@@ -249,6 +249,10 @@ configuration:
       key: KEY_CHANGE_ME
       secret: SECRET_CHANGE_ME
       host: https://http-data-service-fr.example.com
+  spicedb:
+    url:           "spicedb.example.guru"
+    preshared_key: "myPSK"
+    ca_cert_path:  "/app/custom_certs/spicedb.pem"
   common:
     # Service variables
     TOUCAN_NGINX_SUPERVISOR:         'off'
