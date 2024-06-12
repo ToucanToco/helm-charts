@@ -1,0 +1,10 @@
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "laputa.fullname" . }}-spicedb-ca
+  labels:
+    {{- include "laputa.labels" . | nindent 4 }}
+data:
+  ca-spicedb.pem: {{ .Values.keys.spicedb.ca | b64enc }}

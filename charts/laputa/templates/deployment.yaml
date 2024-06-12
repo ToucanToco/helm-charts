@@ -42,6 +42,8 @@ spec:
             - name: {{ include "laputa.fullname" $ }}-{{ $key }}
               mountPath: {{ $value.mountPath }}
           {{- end }}
+            - name:      {{ include "laputa.fullname" . }}-spicedb-ca
+              mountPath: /app/custom_certs
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
@@ -70,6 +72,9 @@ spec:
             sizeLimit: {{ $value.size | quote }}
       {{- end }}
       {{- end }}
+        - name: {{ include "laputa.fullname" . }}-spicedb-ca
+          secret:
+            secretName: {{ include "laputa.fullname" . }}-spicedb-ca
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

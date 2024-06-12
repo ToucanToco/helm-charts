@@ -380,3 +380,7 @@ configuration:
     TOUCAN_DATASET_SERVICE_URL:         'https://dataset-service-fr-indus.example.com'
     TOUCAN_TENANCY_FLAG:         'enable'
     TOUCAN_IS_TRIAL:             'False'
+
+keys:
+  spicedb:
+    ca: SPICEDB_CA
