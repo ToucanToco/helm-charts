@@ -525,6 +525,31 @@ entries:
     version: 0.1.0
   laputa:
   - apiVersion: v2
+    appVersion: v129.0.2
+    created: "2024-06-13T09:08:26.102470114Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.13.2
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.31
+    description: A Helm chart for Laputa
+    digest: 2fed5980ec0a8351d4c04de7fa402c35b385fb8dd0b9bef70f6dfcc7e99b1d3e
+    keywords:
+    - laputa
+    - toucan
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: laputa
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.1.4/laputa-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
     appVersion: v113.0.1
     created: "2024-06-11T15:31:58.065313626Z"
     dependencies:
@@ -744,4 +769,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-11T15:31:58.065374921Z"
+generated: "2024-06-13T09:08:26.102550463Z"
