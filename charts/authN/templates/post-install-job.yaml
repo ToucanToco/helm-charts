@@ -47,4 +47,3 @@ spec:
           items:
           - key: init.sh
             path: init.sh
-

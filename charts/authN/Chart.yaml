@@ -4,7 +4,7 @@ description: A Helm for the Authentication Service
 
 type: application
 
-version: 0.2.0
+version: 0.2.1
 
 appVersion: "latest"
 
@@ -26,5 +26,5 @@ keywords:
   - toucan
 
 maintainers:
-  - name: Riadh Meghenem
-    email: riadh.meghenem@toucantoco.com
+  - name: Toucan Toco
+    email: infra@toucantoco.com

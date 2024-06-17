@@ -8,14 +8,14 @@ metadata:
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 data:
-  init.sh: |- 
+  init.sh: |-
     #!/bin/sh
+    set -e
 
     create_config_oauth_server_provider() {
       local tenant_uuid="$1"
       local client_id="$2"
       local client_secret="$3"
-
 
       vault write toucan_oauthapp_tenant/servers/${tenant_uuid}/${tenant_uuid}-oauth/${client_id} \
         provider=oidc \
@@ -39,7 +39,7 @@ data:
       local username="$2"
       local password="$3"
       local workspace="$4"
-      
+
       local token=$(vault read -field="access_token" toucan_oauthapp_tenant/self/${tenant_uuid}/toucan-admin-management-client)
 
       curl --request POST \
