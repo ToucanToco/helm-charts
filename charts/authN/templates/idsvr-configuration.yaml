@@ -330,7 +330,6 @@ data:
                   <name>groups</name>
                   <description>Toucan claims to access admin management api</description>
                   <transformation>
-                    <input-attribute-names>groups</input-attribute-names>
                     <value-transformation-procedure>ZnVuY3Rpb24gZ2VuZXJhdGUoKSB7CiAgICByZXR1cm4gWyJhZG1pbiJdOwp9</value-transformation-procedure>
                   </transformation>
                 </claim>
@@ -401,7 +400,6 @@ data:
                   <name>tenant_id</name>
                   <description>Toucan claims to access tenant_id</description>
                   <transformation>
-                    <input-attribute-names>tenant_id</input-attribute-names>
                     {{- range $path, $bytes := .Files.Glob "tenant_id_transformation_procedure.js" }}
                     <value-transformation-procedure>{{ tpl ($.Files.Get $path) $ | b64enc }}</value-transformation-procedure>
                     {{- end }}
