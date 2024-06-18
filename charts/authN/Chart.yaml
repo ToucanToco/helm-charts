@@ -4,14 +4,14 @@ description: A Helm for the Authentication Service
 
 type: application
 
-version: 0.2.1
+version: 0.3.0
 
 appVersion: "latest"
 
 dependencies:
   - name: idsvr
     repository: https://curityio.github.io/idsvr-helm
-    version: 0.12.15
+    version: 0.12.23
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
     version: 13.2.15
