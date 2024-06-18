@@ -5,7 +5,7 @@ description: A Helm chart to deploy Toucan Layout Service
 type: application
 
 appVersion: latest
-version: 0.2.2
+version: 0.2.3
 
 dependencies:
   - name: postgresql
