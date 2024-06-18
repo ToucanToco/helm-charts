@@ -326,3 +326,54 @@ data:
     COMMENT ON COLUMN buckets.attributes IS 'All attributes stored for this subject/purpose';
     COMMENT ON COLUMN buckets.created IS 'When this bucket was created';
     COMMENT ON COLUMN buckets.updated IS 'When this bucket was last updated';
+
+    CREATE TABLE IF NOT EXISTS database_clients
+    (
+        client_id                                                 VARCHAR(64)  NOT NULL,
+        profile_id                                                VARCHAR(64)  NOT NULL,
+        client_name                                               VARCHAR(128) NULL,
+        created                                                   TIMESTAMP    NOT NULL,
+        updated                                                   TIMESTAMP    NOT NULL,
+        owner                                                     VARCHAR(128) NOT NULL,
+        status                                                    VARCHAR(16)  NOT NULL DEFAULT 'active',
+        client_metadata                                           JSONB        NOT NULL DEFAULT '{}',
+        configuration_references                                  JSONB        NOT NULL DEFAULT '{}',
+        attributes                                                JSONB        NOT NULL DEFAULT '{}',
+
+        PRIMARY KEY (client_id, profile_id)
+    );
+
+    COMMENT ON COLUMN database_clients.client_id IS 'The client ID of this client instance';
+    COMMENT ON COLUMN database_clients.profile_id IS 'The profile ID owning this client instance';
+    COMMENT ON COLUMN database_clients.client_name IS 'The optional database client display name';
+    COMMENT ON COLUMN database_clients.created IS 'When this client was originally created (in UTC time)';
+    COMMENT ON COLUMN database_clients.updated IS 'When this client was last updated (in UTC time)';
+    COMMENT ON COLUMN database_clients.owner IS 'The owner of the database client. This is the user or client who has administrative rights on the database client';
+    COMMENT ON COLUMN database_clients.status IS 'The current status of the client, allowed values are "active", "inactive" and "revoked"';
+    COMMENT ON COLUMN database_clients.client_metadata IS 'Metadata, as a JSON document, tied to this client, especially tags categorizing it';
+    COMMENT ON COLUMN database_clients.configuration_references IS 'JSON document with all attributes referencing an item in the configuration';
+    COMMENT ON COLUMN database_clients.attributes IS 'Canonical object representing this client';
+
+    CREATE INDEX IF NOT EXISTS IDX_DATABASE_CLIENTS_PROFILE_ID ON database_clients (profile_id ASC);
+    CREATE INDEX IF NOT EXISTS IDX_DATABASE_CLIENTS_CLIENT_NAME ON database_clients (client_name ASC);
+    CREATE INDEX IF NOT EXISTS IDX_DATABASE_CLIENTS_OWNER ON database_clients (owner ASC);
+    CREATE INDEX IF NOT EXISTS IDX_DATABASE_CLIENTS_METADATA_TAGS ON database_clients USING GIN ((client_metadata -> 'tags') jsonb_path_ops);
+    CREATE INDEX IF NOT EXISTS IDX_DATABASE_CLIENTS_METADATA_TAGS_NULL ON database_clients (client_metadata) WHERE client_metadata->'tags' IS NULL;
+
+    CREATE TABLE IF NOT EXISTS credentials (
+                                id          VARCHAR(36)  PRIMARY KEY DEFAULT uuid_generate_v4(),
+                                subject     VARCHAR(64)  NOT NULL,
+                                password    VARCHAR(128) NOT NULL,
+                                attributes  JSONB        NOT NULL,
+                                created     TIMESTAMP    NOT NULL,
+                                updated     TIMESTAMP    NOT NULL
+    );
+
+    CREATE UNIQUE INDEX IF NOT EXISTS IDX_CREDENTIALS_SUBJECT ON credentials (subject);
+
+    COMMENT ON COLUMN credentials.id IS 'ID of this credential (unique)';
+    COMMENT ON COLUMN credentials.subject IS 'The subject of this credential (unique)';
+    COMMENT ON COLUMN credentials.password IS 'The hashed password';
+    COMMENT ON COLUMN credentials.attributes IS 'Key/value map of additional attributes associated with the credential';
+    COMMENT ON COLUMN credentials.created IS 'When this credential was created';
+    COMMENT ON COLUMN credentials.updated IS 'When this credential was last updated';
