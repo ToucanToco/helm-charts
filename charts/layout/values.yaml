@@ -120,8 +120,6 @@ configuration:
     preshared_key: PSK
     url:           SPICEDB_URL
   environment: production
-  flagsmith:
-    url: FLAGSMITH_URL
   log_level: INFO
   profiling:
     application_name:    layout-service
