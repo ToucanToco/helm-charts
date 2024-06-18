@@ -117,8 +117,6 @@ configuration:
     preshared_key: PSK
     url:           SPICEDB_URL
   environment: production
-  flagsmith:
-    url: FLAGSMITH_URL
   profiling:
     application_name:    dataset-service
     basic_auth_enabled:  true
