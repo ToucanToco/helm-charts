@@ -52,14 +52,20 @@ spec:
             - name: config-volume
               mountPath: /usr/share/nginx/html/scripts/tc-params.js
               subPath: tc-params.js
+            - name: config-volume
+              mountPath: /usr/share/nginx/html/embed-params.json
+              subPath: embed-params.json
       volumes:
         - name: config-volume
-          configMap: 
+          configMap:
             name: {{ include "tucana.fullname" . }}
             items:
               - key: "tc-params.js"
                 mode: 0744
                 path: "tc-params.js"
+              - key: "embed-params.json"
+                mode: 0744
+                path: "embed-params.json"
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
