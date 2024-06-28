@@ -61,10 +61,10 @@ spec:
             name: {{ include "tucana.fullname" . }}
             items:
               - key: "tc-params.js"
-                mode: 0744
+                mode: 0644
                 path: "tc-params.js"
               - key: "embed-params.json"
-                mode: 0744
+                mode: 0644
                 path: "embed-params.json"
       {{- with .Values.nodeSelector }}
       nodeSelector:
