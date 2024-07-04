@@ -31,6 +31,13 @@ spec:
           allowPrivilegeEscalation: false
           runAsUser: 0
         env:
+        {{- if .Values.configuration.toucan.superAdminUser.existingSecret }}
+        - name: SUPER_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.configuration.toucan.superAdminUser.existingSecret }}
+              key: super-admin-password
+        {{- end }}
         - name: VAULT_ADDR
           value: "{{ .Values.configuration.vaultPostInstallEnvironment.vaultAddr | default (printf "http://%s-%s.%s.svc.cluster.local:8200" .Release.Name "vault" .Release.Namespace ) }}"
         - name: VAULT_SKIP_VERIFY

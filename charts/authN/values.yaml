@@ -8,12 +8,20 @@ fullnameOverride: ""
 configuration:
   tenantId: 7880d520-4df4-4b87-b26d-eb3a96ef36a2 # Can be changed to another uuid
   workspaceId: bbb22dd4-9bcd-45f9-a69c-f10f7bc7bf6d # Can be changed to another uuid
+  ## Can be overridden by setting a custom configuration at idsvr.curity.configuration.
+  ##
+  ## See templates/idsvr-configuration.yaml for an example.
   encryptionKey: "SUPER_SECRET_KEY_CHANGE_ME"
   authNAdminPassword: "admin"
   toucan:
     superAdminUser:
       username: "dev@toucantoco.com"
       password: "admin"
+      ## If set, ignores superAdminUser.password and uses the secret instead.
+      existingSecret: ""
+      ## Key in the secret to use as the password.
+      passwordKey: "super-admin-password"
+
   # use the --set-file flag to specify the key path to load
   # ex: --set-file configuration.keys.public.impersonateUserTokenRsaKey=/path/to/my/key.rsa
   keys:
@@ -72,8 +80,8 @@ idsvr:
       additionalBaseUrl: []
     config:
       uiEnabled: true
-      configuration: 
-        - configMapRef:
+      configuration:
+        - secretRef:
             name: toucan-on-prem-configuration
             items:
               - key: config.xml
@@ -93,7 +101,7 @@ idsvr:
       annotations:
         kubernetes.io/ingress.class: nginx
 
-# https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
+# https://artifacthub.io/packages/helm/bitnami/postgresql/13.2.15?modal=values
 postgresql:
   # disable if you want to use an existing db.
   enabled: true

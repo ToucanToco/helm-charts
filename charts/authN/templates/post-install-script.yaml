@@ -58,4 +58,8 @@ data:
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "micro-service"
 
-    create_super_admin_user "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.toucan.superAdminUser.username }}" "{{ .Values.configuration.toucan.superAdminUser.password }}" "{{ .Values.configuration.workspaceId | replace "-" "" }}"
+    {{- if not .Values.configuration.toucan.superAdminUser.existingSecret }}
+    SUPER_ADMIN_PASSWORD="{{ .Values.configuration.toucan.superAdminUser.password }}"
+    {{- end }}
+
+    create_super_admin_user "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.toucan.superAdminUser.username }}" "${SUPER_ADMIN_PASSWORD}" "{{ .Values.configuration.workspaceId | replace "-" "" }}"
