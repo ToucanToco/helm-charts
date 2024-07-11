@@ -6,13 +6,13 @@ metadata:
   name: {{ include "dataset.fullname" . }}-config-gunicorn
   labels:
     {{- include "dataset.labels" . | nindent 4 }}
-{{- with .Values.gunicornConfigMap.labels }}
+  {{- with .Values.gunicornConfigMap.labels }}
     {{- toYaml . | nindent 4 }}
-{{- end }}
-{{- with .Values.gunicornConfigMap.annotations }}
+  {{- end }}
+  {{- with .Values.gunicornConfigMap.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
-{{- end }}
+  {{- end }}
 data:
   gunicorn.conf.py: |
   {{- range $k, $v := .Values.configGunicorn }}
