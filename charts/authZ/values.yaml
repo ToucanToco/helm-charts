@@ -23,6 +23,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+labels: {}
+annotations: {}
 podAnnotations: {}
 
 podSecurityContext:
@@ -40,6 +42,8 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 50051
+  labels: {}
+  annotations: {}
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -74,6 +78,10 @@ config:
   preshared_key: "CHANGE_ME"
   log_level: info
   http_enabled: "false"
+
+bootstrapConfigMap:
+  labels: {}
+  annotations: {}
 
 # https://artifacthub.io/packages/helm/bitnami/postgresql/11.9.13?modal=values-schema
 postgresql:
