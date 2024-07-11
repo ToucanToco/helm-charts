@@ -24,6 +24,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+labels: {}
+annotations: {}
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -40,11 +42,13 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 3000
+  labels: {}
   annotations: {}
 
 ingress:
   enabled: false
   className: ""
+  labels: {}
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -91,6 +95,10 @@ env:
     value: "/app/config/config.yml"
   - name:  NODE_ENV
     value: "production"
+
+configMap:
+  labels: {}
+  annotations: {}
 
 configuration:
   auth:

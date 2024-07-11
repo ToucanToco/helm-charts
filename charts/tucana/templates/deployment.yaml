@@ -4,6 +4,13 @@ metadata:
   name: {{ include "tucana.fullname" . }}
   labels:
     {{- include "tucana.labels" . | nindent 4 }}
+  {{- with .Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -54,7 +61,7 @@ spec:
               subPath: tc-params.js
       volumes:
         - name: config-volume
-          configMap: 
+          configMap:
             name: {{ include "tucana.fullname" . }}
             items:
               - key: "tc-params.js"

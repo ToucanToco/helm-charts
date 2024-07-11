@@ -4,6 +4,13 @@ metadata:
   name: {{ include "tucana.fullname" . }}
   labels:
     {{- include "tucana.labels" . | nindent 4 }}
+  {{- with .Values.configMap.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.configMap.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   tc-params.js: |
     {{ .Values.tucana_configuration | nindent 4 }}
