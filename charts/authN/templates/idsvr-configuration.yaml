@@ -7,6 +7,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+{{- if .Values.configuration.annotations }}
+  annotations:
+{{ toYaml .Values.configuration.annotations | indent 4 }}
+{{- end }}
 data:
   config.xml: |-
     <config xmlns="http://tail-f.com/ns/config/1.0">

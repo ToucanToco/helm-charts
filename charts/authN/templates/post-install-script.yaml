@@ -7,6 +7,10 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name | quote }}
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+{{- if .Values.postInstall.configMapAnnotations }}
+  annotations:
+{{ toYaml .Values.postInstall.configMapAnnotations | indent 4 }}
+{{- end }}
 data:
   init.sh: |-
     #!/bin/sh
