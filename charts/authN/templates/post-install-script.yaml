@@ -9,7 +9,7 @@ metadata:
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 {{- if .Values.postInstall.configMapAnnotations }}
   annotations:
-{{ toYaml .Values.postInstall.configMapAnnotations | indent 4 }}
+    {{- toYaml .Values.postInstall.configMapAnnotations | nindent 4 }}
 {{- end }}
 data:
   init.sh: |-

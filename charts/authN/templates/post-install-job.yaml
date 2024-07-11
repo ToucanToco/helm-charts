@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/version: {{ .Chart.AppVersion }}
     helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 {{- if .Values.postInstall.labels }}
-{{ toYaml .Values.postInstall.labels | indent 4 }}
+    {{- toYaml .Values.postInstall.labels | nindent 4 }}
 {{- end }}
   annotations:
     # This is what defines this resource as a hook. Without this line, the
@@ -18,7 +18,7 @@ metadata:
     "helm.sh/hook-weight": "-5"
     "helm.sh/hook-delete-policy": hook-succeeded
 {{- if .Values.postInstall.annotations }}
-{{ toYaml .Values.postInstall.annotations | indent 4 }}
+    {{-- toYaml .Values.postInstall.annotations | nindent 4 }}
 {{- end }}
 spec:
   template:
@@ -30,7 +30,7 @@ spec:
         helm.sh/chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
 {{- if .Values.postInstall.podAnnotations }}
       annotations:
-{{ toYaml .Values.postInstall.podAnnotations | indent 8 }}
+        {{- toYaml .Values.postInstall.podAnnotations | nindent 8 }}
 {{- end }}
     spec:
       restartPolicy: Never
