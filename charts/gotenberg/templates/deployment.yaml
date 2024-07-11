@@ -4,6 +4,13 @@ metadata:
   name: {{ include "gotenberg.fullname" . }}
   labels:
     {{- include "gotenberg.labels" . | nindent 4 }}
+  {{- with .Values.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -19,8 +26,8 @@ spec:
       {{- end }}
       labels:
         {{- include "gotenberg.selectorLabels" . | nindent 8 }}
-        {{- if .Values.podLabels }}
-        {{- toYaml .Values.podLabels | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
