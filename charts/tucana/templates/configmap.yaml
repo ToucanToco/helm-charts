@@ -7,3 +7,5 @@ metadata:
 data:
   tc-params.js: |
     {{ .Values.tucana_configuration | nindent 4 }}
+  embed-params.json: |
+    {{ .Values.embed_configuration | nindent 4 }}
