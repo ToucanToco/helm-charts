@@ -3,6 +3,34 @@ entries:
   authN:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-07-12T09:02:15.974572688Z"
+    dependencies:
+    - name: idsvr
+      repository: https://curityio.github.io/idsvr-helm
+      version: 0.12.23
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: vault.enabled
+      name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.23.0
+    description: A Helm for the Authentication Service
+    digest: cf00cec754ddfcbf9668100a96d6bba876d938d34060ad9f614645211c2d85a8
+    keywords:
+    - authN
+    - toucan
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: authN
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.4.1/authN-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-07-12T08:18:41.99367894Z"
     dependencies:
     - name: idsvr
@@ -409,6 +437,24 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/authz-0.1.0/authz-0.1.0.tgz
     version: 0.1.0
   dataset:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-07-12T09:02:16.128488596Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart to deploy Toucan Dataset Service
+    digest: 35ba80096fc6cfad54f949c2211eec74dd321d66338db9e2f01501450f0efb09
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: dataset
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.4.6/dataset-0.4.6.tgz
+    version: 0.4.6
   - apiVersion: v2
     appVersion: latest
     created: "2024-07-12T08:18:42.268465375Z"
@@ -1150,4 +1196,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-07-12T08:18:42.981261648Z"
+generated: "2024-07-12T09:02:16.128641535Z"
