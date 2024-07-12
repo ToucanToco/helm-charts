@@ -3,6 +3,34 @@ entries:
   authN:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-07-12T08:18:41.99367894Z"
+    dependencies:
+    - name: idsvr
+      repository: https://curityio.github.io/idsvr-helm
+      version: 0.12.23
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: vault.enabled
+      name: vault
+      repository: https://helm.releases.hashicorp.com
+      version: 0.23.0
+    description: A Helm for the Authentication Service
+    digest: b18244e94422be08ba6919cf8db456e55fe52d58c08844d476e937af1b8c3036
+    keywords:
+    - authN
+    - toucan
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: authN
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authN-0.4.0/authN-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-18T14:46:49.721553321Z"
     dependencies:
     - name: idsvr
@@ -340,6 +368,27 @@ entries:
   authz:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-07-12T08:18:42.146012673Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart for the Authorization Service
+    digest: ac0b320e13f9faa4f7f2aa9d96f7da2fc796cb27165a19cb5a185370cdcc8fea
+    keywords:
+    - authZ
+    - toucan
+    maintainers:
+    - email: evan.tissot@toucantoco.com
+      name: Evan Tissot
+    name: authz
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/authz-0.1.1/authz-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-07T08:35:47.280594326Z"
     dependencies:
     - condition: postgresql.enabled
@@ -360,6 +409,24 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/authz-0.1.0/authz-0.1.0.tgz
     version: 0.1.0
   dataset:
+  - apiVersion: v2
+    appVersion: latest
+    created: "2024-07-12T08:18:42.268465375Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    description: A Helm chart to deploy Toucan Dataset Service
+    digest: c5ac5d6de9b97402956d5c0cccf491f553569575a416cb83310aa249dec85a77
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: dataset
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/dataset-0.4.5/dataset-0.4.5.tgz
+    version: 0.4.5
   - apiVersion: v2
     appVersion: latest
     created: "2024-06-18T12:52:10.098321359Z"
@@ -543,6 +610,25 @@ entries:
   gotenberg:
   - apiVersion: v2
     appVersion: 8.2.2
+    created: "2024-07-12T08:18:42.421451604Z"
+    description: A Helm chart for Gotenberg
+    digest: 7d7ca06edcea577d223db159f33a25af038f9bd4bab48e17319671524bf876fc
+    icon: https://user-images.githubusercontent.com/8983173/130322857-185831e2-f041-46eb-a17f-0a69d066c4e5.png
+    keywords:
+    - gotenberg
+    - pdf
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: gotenberg
+    sources:
+    - https://github.com/gotenberg/gotenberg
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/gotenberg-0.1.2/gotenberg-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 8.2.2
     created: "2024-06-07T07:04:54.666636038Z"
     description: A Helm chart for Gotenberg
     digest: 12755d5307dbd516aa55ad800254c8245e917f8b7147b472748d5d88a072cd3d
@@ -580,6 +666,27 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/gotenberg-0.1.0/gotenberg-0.1.0.tgz
     version: 0.1.0
   impersonate:
+  - apiVersion: v2
+    appVersion: v0.3.0
+    created: "2024-07-12T08:18:42.54792388Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.1.5
+    description: A Helm chart for Impersonate Service
+    digest: cb490f03c4958445642cef42c96485df3418b804f2083e41929ddf9ab7dbc803
+    keywords:
+    - impersonate
+    - toucan
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: impersonate
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/impersonate-0.2.2/impersonate-0.2.2.tgz
+    version: 0.2.2
   - apiVersion: v2
     appVersion: v0.3.0
     created: "2023-11-21T11:06:58.618701758Z"
@@ -644,6 +751,31 @@ entries:
     - https://github.com/ToucanToco/helm-charts/releases/download/impersonate-0.1.0/impersonate-0.1.0.tgz
     version: 0.1.0
   laputa:
+  - apiVersion: v2
+    appVersion: v129.0.2
+    created: "2024-07-12T08:18:42.703395413Z"
+    dependencies:
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 16.13.2
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.18.5
+    description: A Helm chart for Laputa
+    digest: e59a1feff5773665bb84a63dc77796d7b69a63b08f2cab39e82783e1a7d550a8
+    keywords:
+    - laputa
+    - toucan
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: laputa
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/laputa-0.2.1/laputa-0.2.1.tgz
+    version: 0.2.1
   - apiVersion: v2
     appVersion: v129.0.2
     created: "2024-06-18T12:52:10.234812864Z"
@@ -822,6 +954,28 @@ entries:
   layout:
   - apiVersion: v2
     appVersion: latest
+    created: "2024-07-12T08:18:42.848466736Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.15
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.4.0
+    description: A Helm chart to deploy Toucan Layout Service
+    digest: 7aa420eec4bbc249960300ad6321c7e5a112530903ba2bb7c40df7f420e98e51
+    maintainers:
+    - email: infra@toucantoco.com
+      name: Toucan Toco
+    name: layout
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/layout-0.2.4/layout-0.2.4.tgz
+    version: 0.2.4
+  - apiVersion: v2
+    appVersion: latest
     created: "2024-06-18T12:52:10.400913231Z"
     dependencies:
     - condition: postgresql.enabled
@@ -933,6 +1087,19 @@ entries:
   tucana:
   - apiVersion: v2
     appVersion: latest-lts
+    created: "2024-07-12T08:18:42.981036817Z"
+    description: A Helm chart to deploy Toucan frontend
+    digest: bf5ee8a9fa26b00a36742a0b752e7295989442dc429441140c7dd3fbf18e6db9
+    maintainers:
+    - email: riadh.meghenem@toucantoco.com
+      name: Riadh Meghenem
+    name: tucana
+    type: application
+    urls:
+    - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.4/tucana-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: latest-lts
     created: "2023-09-27T16:03:12.014639328Z"
     description: A Helm chart to deploy Toucan frontend
     digest: 166f3f0eb99102e789d3bdd1633219d1954c6c93da1161e8403060204da2b1fb
@@ -983,4 +1150,4 @@ entries:
     urls:
     - https://github.com/ToucanToco/helm-charts/releases/download/tucana-0.1.0/tucana-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-18T14:46:49.721624855Z"
+generated: "2024-07-12T08:18:42.981261648Z"
