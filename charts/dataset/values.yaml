@@ -25,7 +25,8 @@ serviceAccount:
   name: ""
 
 labels: {}
-annotations: {}
+annotations:
+  reloader.stakater.com/search: "true"
 podAnnotations: {}
 
 podSecurityContext: {}
