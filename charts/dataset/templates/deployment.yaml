@@ -4,6 +4,13 @@ metadata:
   name: {{ include "dataset.fullname" . }}
   labels:
     {{- include "dataset.labels" . | nindent 4 }}
+  {{- with .Values.labels }}
+    {{- toYaml .Values.labels | nindent 4 }}
+  {{- end }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}

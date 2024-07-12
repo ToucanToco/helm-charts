@@ -4,6 +4,14 @@ metadata:
   name: {{ include "authz.fullname" . }}-bootstrap
   labels:
     {{- include "authz.labels" . | nindent 4 }}
+  {{- with .Values.bootstrapConfigMap.labels }}
+  labels:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.bootstrapConfigMap.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 data:
   bootstrap.yaml: |
     schema: |-

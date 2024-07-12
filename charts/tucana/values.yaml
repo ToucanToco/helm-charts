@@ -23,6 +23,8 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+labels: {}
+annotations: {}
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -39,10 +41,13 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
+  labels: {}
+  annotations: {}
 
 ingress:
   enabled: false
   className: ""
+  labels: {}
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
@@ -80,6 +85,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+configMap:
+  labels: {}
+  annotations: {}
 
 tucana_configuration: |
   /**

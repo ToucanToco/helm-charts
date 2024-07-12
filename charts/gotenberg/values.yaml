@@ -23,6 +23,8 @@ serviceAccount:
   ## If not set and create is true, a name is generated using the fullname template
   name: ""
 
+labels: {}
+annotations: {}
 podAnnotations: {}
 
 # -- List of additional pod labels
@@ -39,6 +41,8 @@ securityContext:
 service:
   type: ClusterIP
   port: 80
+  labels: {}
+  annotations: {}
 
 resources:
   {}
@@ -71,6 +75,8 @@ ingress:
   enabled: false
   # -- Set the class name of the ingress
   className: ""
+  # -- Set the labels of the ingress
+  labels: {}
   # -- Set the annotations of the ingress
   annotations:
     {}
