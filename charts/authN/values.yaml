@@ -153,6 +153,15 @@ vault:
     enabled: false
   ui:
     enabled: true
+
+  auth:
+    kubernetes:
+      enabled: false
+      host: https://kubernetes.default.svc
+      caCertPath: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      serviceAccountNames: ""
+      serviceAccountNamespaces: ""
+
   server:
     dataStorage:
       enabled: true

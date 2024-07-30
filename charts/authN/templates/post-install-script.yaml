@@ -28,6 +28,31 @@ data:
         client_secret=${client_secret}
     }
 
+    {{- if .Values.vault.auth.kubernetes.enabled }}
+    create_config_kubernetes_auth() {
+        local tenant_uuid="$1"
+        local workspace="$2"
+
+        vault auth enable kubernetes || true
+
+        vault write auth/kubernetes/config \
+          kubernetes_host={{ .Values.vault.auth.kubernetes.host }} \
+          kubernetes_ca_cert=@{{ .Values.vault.auth.kubernetes.caCertPath }}
+
+    vault policy write policy-dev-${tenant_uuid}-${workspace} - <<EOF
+    path "secret/data/dev/${tenant_uuid}/${workspace}/*" {
+      capabilities = ["read"]
+      # Available "create", "read", "update", "patch", "delete", "list", "subscribe"
+    }
+    EOF
+    vault write auth/kubernetes/role/dev-${tenant_uuid}-${workspace} \
+      bound_service_account_names={{ .Values.vault.auth.kubernetes.serviceAccountNames }} \
+      bound_service_account_namespaces={{ .Values.vault.auth.kubernetes.serviceAccountNamespaces }} \
+      policies=policy-dev-${tenant_uuid}-${workspace} \
+      ttl=1h
+    }
+    {{- end }}
+
     create_self_oauth_client_credentials() {
       local tenant_uuid="$1"
       local client_id="$2"
@@ -58,6 +83,7 @@ data:
 
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "{{ .Values.configuration.oidcClients.toucanAdminManagementClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "accounts"
+    create_config_kubernetes_auth "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.workspaceId }}"
 
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "micro-service"
