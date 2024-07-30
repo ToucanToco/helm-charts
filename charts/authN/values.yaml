@@ -162,6 +162,9 @@ vault:
       serviceAccountNames: ""
       serviceAccountNamespaces: ""
 
+  postInstallScript: ""
+    # vault write ...
+
   server:
     dataStorage:
       enabled: true

@@ -78,14 +78,32 @@ data:
         --data '{"query":"mutation {\n\tcreateAccount(\n\t\tinput: {\n\t\t\tfields: {\n\t\t\t\tuserName: \"'${username}'\"\n\t\t\t\temails: { value: \"'${username}'\", primary: true }\n\t\t\t\tactive: true\n\t\t\t\tpassword: \"'${password}'\"\n\t\t\t\tlegacyLaputaRoles: \"{\\\"workspace_'${workspace}'\\\":{\\\"roles\\\":[\\\"SUPER_ADMIN\\\"]}}\"\n\t\t\t}\n\t\t}\n\t) {\n\t\taccount {\n\t\t\tid\n\t\t\tuserName\n\t\t\tprofileUrl\n\t\t}\n\t}\n}\n"}'
     }
 
+    {{- if .Values.vault.postInstallScript }}
+    post_install() {
+      set +e
+      local tenant_uuid="$1"
+      local workspace="$2"
+
+    {{ .Values.vault.postInstallScript | nindent 4 }}
+
+      set -e
+    }
+    {{- end }}
+
     # Install Curl
     apk update && apk add curl
 
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "{{ .Values.configuration.oidcClients.toucanAdminManagementClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-admin-management-client" "accounts"
+    {{- if .Values.vault.auth.kubernetes.enabled }}
     create_config_kubernetes_auth "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.workspaceId }}"
+    {{- end }}
 
     create_config_oauth_server_provider "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "{{ .Values.configuration.oidcClients.toucanMicroServiceClient.secret }}"
     create_self_oauth_client_credentials "{{ .Values.configuration.tenantId }}" "toucan-micro-service-client" "micro-service"
 
     create_super_admin_user "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.toucan.superAdminUser.username }}" "{{ .Values.configuration.toucan.superAdminUser.password }}" "{{ .Values.configuration.workspaceId | replace "-" "" }}"
+
+    {{- if .Values.vault.postInstallScript }}
+    post_install "{{ .Values.configuration.tenantId }}" "{{ .Values.configuration.workspaceId }}"
+    {{- end }}
