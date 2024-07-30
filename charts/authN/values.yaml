@@ -198,4 +198,5 @@ vault:
       - -ec
       - >
         sleep 5 &&
-        vault secrets enable -path=toucan_oauthapp_tenant oauthapp
+        vault secrets enable -path=toucan_oauthapp_tenant oauthapp &&
+        vault secrets enable kv-v2
