@@ -101,7 +101,7 @@ idsvr:
     config:
       uiEnabled: true
       configuration:
-        - configMapRef:
+        - secretRef:
             name: toucan-on-prem-configuration
             items:
               - key: config.xml
